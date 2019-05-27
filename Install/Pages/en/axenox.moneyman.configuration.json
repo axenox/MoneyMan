@@ -1,0 +1,15 @@
+{
+    "id": "0x7f7ebeae5e8711e984350205857feb80",
+    "alias_with_namespace": "axenox.moneyman.configuration",
+    "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
+    "menu_index": "24",
+    "menu_visible": true,
+    "name": "Configuration",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "NavTiles",
+        "object_alias": "exface.Core.PAGE"
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "id": "0x766f19be5fb111e9ad950205857feb80",
+    "alias_with_namespace": "axenox.moneyman.categories",
+    "menu_parent_page_alias": "axenox.moneyman.configuration",
+    "menu_index": "0",
+    "menu_visible": true,
+    "name": "Categories",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "DataTable",
+        "object_alias": "axenox.MoneyMan.category",
+        "columns": [
+            {
+                "attribute_group_alias": "~VISIBLE"
+            }
+        ],
+        "buttons": [
+            {
+                "action_alias": "exface.Core.ShowObjectCreateDialog"
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectEditDialog",
+                "bind_to_double_click": true
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectCopyDialog"
+            },
+            {
+                "action_alias": "exface.Core.DeleteObject"
+            }
+        ]
+    }
+}
