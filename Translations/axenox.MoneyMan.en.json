@@ -1,0 +1,5 @@
+{
+	"ACTION.IMPORTTRANSACTIONS.NAME": "Import Transactions",
+	"ACTION.IMPORTTRANSACTIONSPREVIEW.NAME": "Preview",
+	"ACTION.IMPORTTRANSACTIONSPREVIEW.RESULT": "Enriched %number% rows successfully"
+}
