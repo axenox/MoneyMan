@@ -10,6 +10,9 @@ use exface\Core\Interfaces\DataSheets\DataSheetInterface;
 use exface\Core\Factories\DataSheetFactory;
 use exface\Core\DataTypes\SortingDirectionsDataType;
 use exface\Core\Exceptions\Actions\ActionRuntimeError;
+use exface\Core\DataTypes\ComparatorDataType;
+use exface\Core\DataTypes\DateDataType;
+use exface\Core\DataTypes\NumberDataType;
 
 class ImportTransactionsPreview extends CreateData
 {
@@ -18,6 +21,10 @@ class ImportTransactionsPreview extends CreateData
     private $payeeIds = null;
     
     private $rules = null;
+    
+    private $existingTransactions = null;
+    
+    private $existingTransactionsDaysRange = 3;
     
     /**
      * 
@@ -31,12 +38,23 @@ class ImportTransactionsPreview extends CreateData
         return ResultFactory::createDataResult($task, $data_sheet, $message);
     }
     
+    /**
+     * 
+     * @param TaskInterface $task
+     * @return DataSheetInterface
+     */
     protected function getInputDataEnriched(TaskInterface $task) : DataSheetInterface
     {
         $data_sheet = $this->getInputDataSheet($task);
-        return $this->enrichData($data_sheet);
+        $data_sheet = $this->enrichData($data_sheet);
+        return $this->checkDuplicates($data_sheet);
     }
     
+    /**
+     * 
+     * @param DataSheetInterface $sheet
+     * @return DataSheetInterface
+     */
     protected function enrichData(DataSheetInterface $sheet) : DataSheetInterface
     {
         $sheet = $this->applyImportRules($sheet);
@@ -67,6 +85,11 @@ class ImportTransactionsPreview extends CreateData
         return $sheet;
     }
     
+    /**
+     * 
+     * @param int $payeeId
+     * @return int|NULL
+     */
     protected function getDefaultCategory(int $payeeId) : ?int
     {
         if ($this->defaultCategories === null) {
@@ -83,6 +106,11 @@ class ImportTransactionsPreview extends CreateData
         return $this->defaultCategories[$payeeId];
     }
     
+    /**
+     * 
+     * @param string $payeeName
+     * @return int|NULL
+     */
     protected function getPayeeId(string $payeeName) : ?int
     {
         if ($this->payeeIds === null) {
@@ -121,7 +149,7 @@ class ImportTransactionsPreview extends CreateData
     protected function applyImportRule(DataSheetInterface $sheet, array $rule) : DataSheetInterface
     {
         foreach ($sheet->getRows() as $rowNr => $row) {
-            if ($rule['account'] !== null && $rule['account'] !== $row['account']) {
+            if ($rule['account'] !== null && $rule['account'] != $row['account']) {
                 continue;
             }
                 
@@ -163,4 +191,83 @@ class ImportTransactionsPreview extends CreateData
         
         return $sheet;
     }
+    
+    protected function getExistingTransactions(DataSheetInterface $inputSheet) : DataSheetInterface
+    {
+        if ($this->existingTransactions === null) {
+             $minDate = null;
+             $maxDate = null;
+             foreach ($inputSheet->getRows() as $row) {
+                 $rowDate = DateDataType::cast($row['date']);
+                 if ($minDate === null || $minDate > $rowDate) {
+                     $minDate = $rowDate;
+                 }
+                 if ($maxDate === null || $maxDate < $rowDate) {
+                     $maxDate = $rowDate;
+                 }
+             }
+             $minDate = DateDataType::cast(strtotime($minDate. ' - ' . $this->existingTransactionsDaysRange . ' days'));
+             $maxDate = DateDataType::cast(strtotime($maxDate. ' + ' . $this->existingTransactionsDaysRange . ' days'));
+             
+             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.account_transaction');
+             $cols = $ds->getColumns();
+             $cols->addFromAttribute($ds->getMetaObject()->getUidAttribute());
+             $cols->addMultiple(['account', 'transfer_to_account', 'payee', 'amount_booked', 'date']);
+             $ds->addFilterFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
+             $ds->addFilterFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
+             $ds->dataRead();
+             $this->existingTransactions = $ds;
+        }
+        
+        return $this->existingTransactions;
+    }
+    
+    protected function checkDuplicates(DataSheetInterface $enrichedData) : DataSheetInterface
+    {
+        $existingData = $this->getExistingTransactions($enrichedData);
+        foreach ($enrichedData->getRows() as $rowNr => $rowNew) {
+            foreach ($existingData->getRows() as $rowOld) {
+                if (NumberDataType::cast($rowNew['amount_booked']) == $rowOld['amount_booked'] && $rowNew['payee'] === $rowOld['payee']) {
+                    $datetime1 = new \DateTime($rowOld['date']);
+                    $datetime2 = new \DateTime($rowNew['date']);
+                    $interval = $datetime1->diff($datetime2, true);
+                    $dateMatch = $interval->days <= $this->existingTransactionsDaysRange;
+                    
+                    $accountsMatch = $rowOld['account'] == $rowNew['account'] && $rowOld['transfer_to_account'] == $rowNew['transfer_to_account'];
+                    $accountsMatchReversed = $rowOld['transfer_to_account'] == $rowNew['account'] && $rowOld['account'] == $rowNew['transfer_to_account'];
+                    if ($dateMatch === true && ($accountsMatch || $accountsMatchReversed)) {
+                        $enrichedData->setCellValue('id', $rowNr, $rowOld['id']);
+                        continue 2;
+                    }
+                }
+            }
+        }
+        return $enrichedData;
+    }
+    
+    /**
+     *
+     * @return int
+     */
+    public function getNumberOfDaysToSearchForDuplicates() : int
+    {
+        return $this->existingTransactionsDaysRange;
+    }
+    
+    /**
+     * Search fro duplicates with the range of +/- X days from the transaction date.
+     * 
+     * @uxon-property number_of_days_to_search_for_duplicates
+     * @uonx-type int
+     * @uxon-default 3
+     * 
+     * @param int $value
+     * @return ImportTransactionsPreview
+     */
+    public function setNumberOfDaysToSearchForDuplicates(int $value) : ImportTransactionsPreview
+    {
+        $this->existingTransactionsDaysRange = $value;
+        return $this;
+    }
+    
 }

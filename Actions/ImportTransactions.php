@@ -28,12 +28,32 @@ class ImportTransactions extends ImportTransactionsPreview
     {
         $data_sheet = $this->getInputDataEnriched($task);
         
+        // Remove the category column, which is just there to show the enriched transactions
+        // properly in the importer
         $data_sheet->getColumns()->removeByKey('transaction_category__category');
         
-        $affected_rows = $data_sheet->dataCreate(true, $transaction);
-        $this->setUndoDataSheet($data_sheet);
+        // Remove duplicate transactions (= rows, where the id column has a value)
+        foreach ($data_sheet->getUidColumn()->getValues(false) as $nr => $uid) {
+            if ($uid) {
+                $data_sheet->removeRow($nr);
+            }
+        }
         
-        $message = $this->getWorkbench()->getCoreApp()->getTranslator()->translate('ACTION.CREATEDATA.RESULT', ['%number%' => $affected_rows], $affected_rows);
+        if ($data_sheet->isEmpty() === false) {
+            // Mark all newly imported rows a cleared
+            if (! $statusCol = $data_sheet->getColumns()->get('status')) {
+                $statusCol = $data_sheet->getColumns()->addFromExpression('status');
+            }
+            $statusCol->setValueOnAllRows('C');
+            
+            // Save them
+            $affected_rows = $data_sheet->dataCreate(true, $transaction);
+            $this->setUndoDataSheet($data_sheet);
+            $message = $this->getWorkbench()->getCoreApp()->getTranslator()->translate('ACTION.CREATEDATA.RESULT', ['%number%' => $affected_rows], $affected_rows);
+        } else {
+            $message = 'No new transactions found in imported data';
+        }
+        
         $result = ResultFactory::createDataResult($task, $data_sheet, $message);
         if ($affected_rows > 0) {
             $result->setDataModified(true);
