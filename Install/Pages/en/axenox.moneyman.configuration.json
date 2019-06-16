@@ -2,7 +2,7 @@
     "id": "0x7f7ebeae5e8711e984350205857feb80",
     "alias_with_namespace": "axenox.moneyman.configuration",
     "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
-    "menu_index": "24",
+    "menu_index": "3",
     "menu_visible": true,
     "name": "Configuration",
     "description": "",

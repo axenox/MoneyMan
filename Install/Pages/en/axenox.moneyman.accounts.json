@@ -1,8 +1,8 @@
 {
     "id": "0xa4e991705fb111e9ad870205857feb80",
     "alias_with_namespace": "axenox.moneyman.accounts",
-    "menu_parent_page_alias": "axenox.moneyman.configuration",
-    "menu_index": "0",
+    "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
+    "menu_index": "2",
     "menu_visible": true,
     "name": "Accounts",
     "description": "",
@@ -11,9 +11,27 @@
     "contents": {
         "widget_type": "DataTable",
         "object_alias": "axenox.MoneyMan.account",
+        "filters": [
+            {
+                "attribute_alias": "inactive_flag",
+                "value": 0
+            },
+            {
+                "attribute_alias": "account_name"
+            },
+            {
+                "attribute_alias": "account_type"
+            }
+        ],
         "columns": [
             {
-                "attribute_group_alias": "~VISIBLE"
+                "attribute_alias": "account_type__LABEL"
+            },
+            {
+                "attribute_alias": "account_name"
+            },
+            {
+                "attribute_alias": "inactive_flag"
             }
         ],
         "buttons": [

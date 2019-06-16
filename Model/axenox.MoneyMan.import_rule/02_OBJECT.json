@@ -80,25 +80,25 @@
     ],
     "rows": [
         {
-            "CREATED_ON": "2019-04-14 06:25:37",
-            "MODIFIED_ON": "2019-06-12 15:29:19",
+            "CREATED_ON": "2019-06-09 09:10:57",
+            "MODIFIED_ON": "2019-06-09 09:18:35",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
-            "UID": "0x11e95e7e15e387f09677e4b318306b9a",
+            "UID": "0x11e98a961ba56001b8c3e4b318306b9a",
             "READABLE_FLAG": "1",
             "WRITABLE_FLAG": "1",
             "COMMENTS": "",
             "DOCS": "",
-            "NAME": "Transaction",
+            "NAME": "Rule",
             "INHERIT_DATA_SOURCE_BASE_OBJECT": "1",
             "DATA_SOURCE": "0x11e95e7b68dba8099677e4b318306b9a",
             "APP": "0x11e95e229cf921a39677e4b318306b9a",
             "SHORT_DESCRIPTION": "",
             "PARENT_OBJECT": "",
             "DATA_ADDRESS_PROPS": null,
-            "DEFAULT_EDITOR_UXON": "{\"widget_type\":\"Dialog\",\"widgets\":[{\"widget_type\":\"WidgetGroup\",\"widgets\":[{\"attribute_alias\":\"type\"},{\"attribute_alias\":\"date\"},{\"attribute_alias\":\"account\"},{\"attribute_alias\":\"amount_booked\"},{\"attribute_alias\":\"currency_booked\"},{\"attribute_alias\":\"payee\"},{\"attribute_alias\":\"id\",\"widget_type\":\"InputHidden\",\"id\":\"transaction_id\"}]},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Transfer\",\"widgets\":[{\"attribute_alias\":\"transfer_transaction\",\"widget_type\":\"Input\"},{\"attribute_alias\":\"transfer_transaction__account\",\"required\":false},{\"attribute_alias\":\"transfer_transaction__amount_booked\",\"required\":false},{\"attribute_alias\":\"transfer_transaction__currency_booked\",\"required\":false},{\"attribute_alias\":\"transfer_transaction__note\",\"required\":false}]},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Note\",\"widgets\":[{\"attribute_alias\":\"note\",\"height\":4,\"hide_caption\":true}]},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Categories\",\"widgets\":[{\"widget_type\":\"DataTable\",\"object_alias\":\"axenox.MoneyMan.transaction_category\",\"height\":5,\"paginate\":false,\"hide_header\":false,\"hide_footer\":true,\"editable\":false,\"filters\":[{\"attribute_alias\":\"transaction__id\",\"required\":true,\"widget_type\":\"InputHidden\",\"value\":\"=transaction_id\"}],\"columns\":[{\"attribute_alias\":\"category__LABEL\"},{\"attribute_alias\":\"amount\",\"footer\":\"SUM\"}],\"buttons\":[{\"action\":{\"alias\":\"exface.Core.ShowObjectCreateDialog\",\"prefill_with_data_from_widget_link\":\"transaction_id\"},\"disable_condition\":{\"widget_link\":\"transaction_id\",\"comparator\":\"==\",\"value\":\"\"}},{\"action_alias\":\"exface.Core.ShowObjectEditDialog\"},{\"action_alias\":\"exface.Core.DeleteObject\"}]}]}]}",
-            "ALIAS": "transaction",
-            "DATA_ADDRESS": "`transaction`"
+            "DEFAULT_EDITOR_UXON": "{\"widget_type\":\"Dialog\",\"widgets\":[{\"attribute_alias\":\"name\"},{\"attribute_alias\":\"importance\"},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Apply to\",\"widgets\":[{\"attribute_alias\":\"regex\"},{\"attribute_alias\":\"field\"},{\"attribute_alias\":\"account\"}]},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Assign\",\"widgets\":[{\"attribute_alias\":\"payee\"},{\"attribute_alias\":\"category\"},{\"attribute_alias\":\"transfer_to_account\"}]}]}",
+            "ALIAS": "import_rule",
+            "DATA_ADDRESS": "import_rule"
         }
     ],
     "totals_rows": [],

@@ -2,7 +2,7 @@
     "id": "0x2a35ee9a5fb311e99ca00205857feb80",
     "alias_with_namespace": "axenox.moneyman.transactions",
     "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
-    "menu_index": "1",
+    "menu_index": "0",
     "menu_visible": true,
     "name": "Transactions",
     "description": "",
@@ -30,7 +30,10 @@
         ],
         "columns": [
             {
-                "attribute_alias": "status"
+                "attribute_alias": "status",
+                "cell_widget": {
+                    "widget_type": "Value"
+                }
             },
             {
                 "attribute_alias": "date"
@@ -50,12 +53,39 @@
             },
             {
                 "attribute_alias": "transaction_category__category__category_name:LIST_DISTINCT"
+            },
+            {
+                "attribute_alias": "transfer_transaction__account__LABEL",
+                "caption": "Transfer to\/from"
+            },
+            {
+                "attribute_alias": "note",
+                "width_max": "200px"
             }
         ],
         "sorters": [
             {
                 "attribute_alias": "date",
                 "direction": "desc"
+            }
+        ],
+        "buttons": [
+            {
+                "action_alias": "exface.Core.ShowObjectEditDialog",
+                "bind_to_double_click": true
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectCreateDialog"
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectCopyDialog"
+            },
+            {
+                "action_alias": "axenox.MoneyMan.ShowTransactionImportDialog"
+            },
+            {
+                "action_alias": "exface.Core.DeleteObject",
+                "visibility": "optional"
             }
         ]
     }

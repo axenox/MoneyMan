@@ -80,25 +80,25 @@
     ],
     "rows": [
         {
-            "CREATED_ON": "2019-04-22 05:42:32",
-            "MODIFIED_ON": "2019-04-22 05:42:32",
+            "CREATED_ON": "2019-06-09 09:06:15",
+            "MODIFIED_ON": "2019-06-09 09:06:40",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
-            "UID": "0x11e964c143b6303d812a0205857feb80",
+            "UID": "0x11e98a9573ac9644b8c3e4b318306b9a",
             "READABLE_FLAG": "1",
             "WRITABLE_FLAG": "1",
             "COMMENTS": "",
             "DOCS": "",
-            "NAME": "Account Transaction",
+            "NAME": "Account Type",
             "INHERIT_DATA_SOURCE_BASE_OBJECT": "1",
             "DATA_SOURCE": "0x11e95e7b68dba8099677e4b318306b9a",
             "APP": "0x11e95e229cf921a39677e4b318306b9a",
             "SHORT_DESCRIPTION": "",
-            "PARENT_OBJECT": "0x11e95e7e15e387f09677e4b318306b9a",
+            "PARENT_OBJECT": "",
             "DATA_ADDRESS_PROPS": null,
             "DEFAULT_EDITOR_UXON": null,
-            "ALIAS": "account_transaction",
-            "DATA_ADDRESS": "account_transaction"
+            "ALIAS": "account_type",
+            "DATA_ADDRESS": "account_type"
         }
     ],
     "totals_rows": [],
