@@ -67,7 +67,7 @@ class ImportTransactionsPreview extends CreateData
                 }
             }
             
-            if (! $row['transfer_to_account'] && ! $row['transaction_category']) {
+            if (! $row['transfer_transaction__account'] && ! $row['transaction_category']) {
                 if (! $row['transaction_category__category'] && $row['payee']) {
                     $row['transaction_category__category'] = $this->getDefaultCategory($row['payee']);
                 }
@@ -133,7 +133,7 @@ class ImportTransactionsPreview extends CreateData
     {
         if ($this->rules === null) {
             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.import_rule');
-            $ds->getColumns()->addMultiple(['account', 'field', 'regex', 'importance', 'category', 'payee', 'transfer_to_account']);
+            $ds->getColumns()->addMultiple(['account', 'field', 'regex', 'importance', 'category', 'payee', 'transfer_account']);
             $ds->getSorters()->addFromString('importance', SortingDirectionsDataType::ASC);
             $ds->dataRead();
             $this->rules = $ds;
@@ -184,8 +184,8 @@ class ImportTransactionsPreview extends CreateData
                 $sheet->setCellValue('transaction_category__category', $rowNr, $rule['category']);
             }
             
-            if (! $row['transaction_category__category'] && ! $row['transfer_to_account'] && $rule['transfer_to_account'] !== null) {
-                $sheet->setCellValue('transfer_to_account', $rowNr, $rule['transfer_to_account']);
+            if (! $row['transaction_category__category'] && ! $row['transfer_transaction__account'] && $rule['transfer_account'] !== null) {
+                $sheet->setCellValue('transfer_transaction__account', $rowNr, $rule['transfer_account']);
             }
         }
         
@@ -209,10 +209,10 @@ class ImportTransactionsPreview extends CreateData
              $minDate = DateDataType::cast(strtotime($minDate. ' - ' . $this->existingTransactionsDaysRange . ' days'));
              $maxDate = DateDataType::cast(strtotime($maxDate. ' + ' . $this->existingTransactionsDaysRange . ' days'));
              
-             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.account_transaction');
+             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
              $cols = $ds->getColumns();
              $cols->addFromAttribute($ds->getMetaObject()->getUidAttribute());
-             $cols->addMultiple(['account', 'transfer_to_account', 'payee', 'amount_booked', 'date']);
+             $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date']);
              $ds->addFilterFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
              $ds->addFilterFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
              $ds->dataRead();
@@ -233,8 +233,8 @@ class ImportTransactionsPreview extends CreateData
                     $interval = $datetime1->diff($datetime2, true);
                     $dateMatch = $interval->days <= $this->existingTransactionsDaysRange;
                     
-                    $accountsMatch = $rowOld['account'] == $rowNew['account'] && $rowOld['transfer_to_account'] == $rowNew['transfer_to_account'];
-                    $accountsMatchReversed = $rowOld['transfer_to_account'] == $rowNew['account'] && $rowOld['account'] == $rowNew['transfer_to_account'];
+                    $accountsMatch = $rowOld['account'] == $rowNew['account'] && $rowOld['transfer_transaction__account'] == $rowNew['transfer_transaction__account'];
+                    $accountsMatchReversed = $rowOld['transfer_transaction__account'] == $rowNew['account'] && $rowOld['account'] == $rowNew['transfer_transaction__account'];
                     if ($dateMatch === true && ($accountsMatch || $accountsMatchReversed)) {
                         $enrichedData->setCellValue('id', $rowNr, $rowOld['id']);
                         continue 2;
