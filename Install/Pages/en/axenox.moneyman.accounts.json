@@ -32,6 +32,18 @@
             },
             {
                 "attribute_alias": "inactive_flag"
+            },
+            {
+                "attribute_alias": "balance"
+            },
+            {
+                "attribute_alias": "balance_posted"
+            },
+            {
+                "attribute_alias": "balance_cleared"
+            },
+            {
+                "attribute_alias": "balance_reconciled"
             }
         ],
         "buttons": [
