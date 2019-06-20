@@ -48,17 +48,19 @@
         ],
         "buttons": [
             {
-                "action_alias": "exface.Core.ShowObjectCreateDialog"
+                "caption": "Reconcile",
+                "action_alias": "axenox.MoneyMan.ReconcileAccountTransactions"
             },
             {
                 "action_alias": "exface.Core.ShowObjectEditDialog",
                 "bind_to_double_click": true
             },
             {
-                "action_alias": "exface.Core.ShowObjectCopyDialog"
+                "action_alias": "exface.Core.ShowObjectCreateDialog"
             },
             {
-                "action_alias": "exface.Core.DeleteObject"
+                "action_alias": "exface.Core.DeleteObject",
+                "visibility": "optional"
             }
         ]
     }
