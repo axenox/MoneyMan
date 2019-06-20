@@ -13,6 +13,9 @@
         "object_alias": "axenox.MoneyMan.transaction",
         "filters": [
             {
+                "attribute_alias": "account"
+            },
+            {
                 "attribute_alias": "date",
                 "comparator": ">=",
                 "value": -365
@@ -22,10 +25,11 @@
                 "comparator": "<="
             },
             {
-                "attribute_alias": "account"
+                "attribute_alias": "transaction_category__category"
             },
             {
-                "attribute_alias": "transaction_category__category"
+                "attribute_alias": "note",
+                "widget_type": "Input"
             }
         ],
         "columns": [

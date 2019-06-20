@@ -165,7 +165,7 @@
     "rows": [
         {
             "CREATED_ON": "2019-04-14 06:25:37",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:00",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e95e7e16011f109677e4b318306b9a",
@@ -189,7 +189,7 @@
             "DATA_ADDRESS": "account_name",
             "OBJECT": "0x11e95e7e15e236d19677e4b318306b9a",
             "FORMATTER": "",
-            "DISPLAYORDER": null,
+            "DISPLAYORDER": "1",
             "LABELFLAG": "1",
             "UIDFLAG": "0",
             "HIDDENFLAG": "0",
@@ -207,7 +207,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:02:14",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a94e40e26a4b8c3e4b318306b9a",
@@ -249,7 +249,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:02:14",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:00",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a94e40fbf64b8c3e4b318306b9a",
@@ -273,7 +273,7 @@
             "DATA_ADDRESS": "inactive_flag",
             "OBJECT": "0x11e95e7e15e236d19677e4b318306b9a",
             "FORMATTER": null,
-            "DISPLAYORDER": null,
+            "DISPLAYORDER": "3",
             "LABELFLAG": "0",
             "UIDFLAG": "0",
             "HIDDENFLAG": "0",
@@ -291,7 +291,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:02:14",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a94e410421db8c3e4b318306b9a",
@@ -333,7 +333,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:02:14",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a94e41083a2b8c3e4b318306b9a",
@@ -375,7 +375,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:02:14",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a94e410b17eb8c3e4b318306b9a",
@@ -417,7 +417,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:02:14",
-            "MODIFIED_ON": "2019-06-09 09:03:14",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a94e410dce2b8c3e4b318306b9a",
@@ -459,7 +459,7 @@
         },
         {
             "CREATED_ON": "2019-06-09 09:06:50",
-            "MODIFIED_ON": "2019-06-09 09:06:50",
+            "MODIFIED_ON": "2019-06-20 05:50:00",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a95888f15a9b8c3e4b318306b9a",
@@ -483,7 +483,7 @@
             "DATA_ADDRESS": "account_type_id",
             "OBJECT": "0x11e95e7e15e236d19677e4b318306b9a",
             "FORMATTER": null,
-            "DISPLAYORDER": null,
+            "DISPLAYORDER": "2",
             "LABELFLAG": "0",
             "UIDFLAG": "0",
             "HIDDENFLAG": "0",
@@ -495,13 +495,13 @@
             "RELATED_OBJ_ATTR": "",
             "SHORT_DESCRIPTION": "",
             "DATA_ADDRESS_PROPS": null,
-            "DEFAULT_VALUE": null,
-            "FIXED_VALUE": null,
+            "DEFAULT_VALUE": "",
+            "FIXED_VALUE": "",
             "CUSTOM_DATA_TYPE": null
         },
         {
             "CREATED_ON": "2019-06-17 12:03:33",
-            "MODIFIED_ON": "2019-06-17 12:05:49",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e990f7dfb4795fa29f0205857feb80",
@@ -543,7 +543,7 @@
         },
         {
             "CREATED_ON": "2019-06-17 12:06:09",
-            "MODIFIED_ON": "2019-06-17 12:09:01",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e990f83d101fd5a29f0205857feb80",
@@ -585,7 +585,7 @@
         },
         {
             "CREATED_ON": "2019-06-17 12:06:37",
-            "MODIFIED_ON": "2019-06-17 12:09:16",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e990f84d937deba29f0205857feb80",
@@ -627,7 +627,7 @@
         },
         {
             "CREATED_ON": "2019-06-17 12:07:23",
-            "MODIFIED_ON": "2019-06-17 12:08:47",
+            "MODIFIED_ON": "2019-06-20 05:50:27",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e990f868e25cffa29f0205857feb80",
