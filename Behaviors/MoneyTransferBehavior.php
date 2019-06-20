@@ -119,16 +119,31 @@ class MoneyTransferBehavior extends AbstractBehavior
                 continue;
             }
             
-            $row = [
-                'date' => $txRow['date'],
-                'account' => $txRow['transfer_transaction__account'],
-                'amount_booked' => $txRow['transfer_transaction__amount_booked'] ? $txRow['transfer_transaction__amount_booked'] : (-1) * $txRow['amount_booked'],
-                'currency_booked' => $txRow['transfer_transaction__currency_booked'] ? $txRow['transfer_transaction__currency_booked'] : $txRow['currency_booked'],
-                'note' => $txRow['transfer_transaction__note'] ? $txRow['transfer_transaction__note'] : $txRow['note'],
-                'payee' => $txRow['payee'],
-                'payee_original_name' => $txRow['payee_original_name'],
-                'transfer_transaction' => $txRow['id']
-            ];
+            $row = [];
+            foreach ($transactionsSheet->getColumns() as $col) {
+                if (StringDataType::startsWith($col->getName(), 'transfer_transaction__', false) === true) {
+                    $tfColName = StringDataType::substringAfter($col->getName(), 'transfer_transaction__');
+                    $row[$tfColName] = $txRow[$col->getName()];
+                }
+            }
+            
+            $row['date'] = $txRow['date'];
+            $row['transfer_transaction'] = $txRow['id'];
+            if ($row['amount_booked'] === null && $txRow['amount_booked'] !== null) {
+                $row['amount_booked'] = (-1) * $txRow['amount_booked'];
+            }
+            if ($row['currency_booked'] === null && $txRow['currency_booked'] !== null) {
+                $row['currency_booked'] = $txRow['currency_booked'];
+            }
+            if ($row['note'] === null && $txRow['note'] !== null) {
+                $row['note'] = $txRow['note'];
+            }
+            if ($row['payee'] === null && $txRow['payee'] !== null) {
+                $row['payee'] = $txRow['payee'];
+            }
+            if ($row['payee_original_name'] === null && $txRow['payee_original_name'] !== null) {
+                $row['payee_original_name'] = $txRow['payee_original_name'];
+            }
             
             if ($isCreate === true) {
                 $row['transfer_autocreated'] = 1;
