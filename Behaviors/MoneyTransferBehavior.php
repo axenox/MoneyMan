@@ -60,8 +60,8 @@ class MoneyTransferBehavior extends AbstractBehavior
                 throw new RuntimeException('Cannot save transfer transactions: ' . $e->getMessage(), null, $e);
             }
             
-            foreach ($transferSheet->getRows() as $rowIdx => $transferRow) {
-                $txSheet->setCellValue('transfer_transaction', $rowIdx, $transferRow['id']);
+            foreach ($transferSheet->getRows() as $transferRow) {
+                $txSheet->setCellValue('transfer_transaction', $transferRow['_txRowIdx'], $transferRow['id']);
                 if (! $transferRow['transfer_transaction']) {
                     $this->createdTransferRows[] = [
                         'id' => $transferRow['id']
@@ -110,7 +110,8 @@ class MoneyTransferBehavior extends AbstractBehavior
     
     protected function createTransferSheet(DataSheetInterface $transactionsSheet) : DataSheetInterface
     {
-        $rows = [];
+        $transfersSheet = DataSheetFactory::createFromObject($transactionsSheet->getMetaObject());
+        $transfersSheet->getColumns()->addFromExpression('_txRowIdx', '_txRowIdx', true);
         foreach ($transactionsSheet->getRows() as $rowIdx => $txRow) {
             $isUpdate = $txRow['transfer_transaction'] > 0;
             $isCreate = $isUpdate === false && $txRow['transfer_transaction__account'] > 0;
@@ -151,11 +152,11 @@ class MoneyTransferBehavior extends AbstractBehavior
                 $row['id'] = $txRow['transfer_transaction'];
             }
             
-            $rows[$rowIdx] = $row;
+            // Save the row index in a separate virtual column
+            $row['_txRowIdx'] = $rowIdx;
+            $transfersSheet->addRow($row);
         }   
         
-        $transfersSheet = DataSheetFactory::createFromObject($transactionsSheet->getMetaObject());
-        $transfersSheet->addRows($rows);
         return $transfersSheet;
     }
 }
