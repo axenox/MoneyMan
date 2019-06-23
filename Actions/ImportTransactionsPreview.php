@@ -24,7 +24,7 @@ class ImportTransactionsPreview extends CreateData
     
     private $existingTransactions = null;
     
-    private $existingTransactionsDaysRange = 3;
+    private $existingTransactionsDaysRange = 4;
     
     /**
      * 
@@ -227,7 +227,7 @@ class ImportTransactionsPreview extends CreateData
         $existingData = $this->getExistingTransactions($enrichedData);
         foreach ($enrichedData->getRows() as $rowNr => $rowNew) {
             foreach ($existingData->getRows() as $rowOld) {
-                if (NumberDataType::cast($rowNew['amount_booked']) == $rowOld['amount_booked'] && $rowNew['payee'] === $rowOld['payee']) {
+                if (NumberDataType::cast($rowNew['amount_booked']) == $rowOld['amount_booked'] && (! $rowNew['payee'] || $rowNew['payee'] === $rowOld['payee'])) {
                     $datetime1 = new \DateTime($rowOld['date']);
                     $datetime2 = new \DateTime($rowNew['date']);
                     $interval = $datetime1->diff($datetime2, true);
