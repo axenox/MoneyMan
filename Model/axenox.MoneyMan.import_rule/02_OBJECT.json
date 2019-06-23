@@ -81,7 +81,7 @@
     "rows": [
         {
             "CREATED_ON": "2019-06-09 09:10:57",
-            "MODIFIED_ON": "2019-06-09 09:18:35",
+            "MODIFIED_ON": "2019-06-21 21:00:50",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e98a961ba56001b8c3e4b318306b9a",
@@ -96,7 +96,7 @@
             "SHORT_DESCRIPTION": "",
             "PARENT_OBJECT": "",
             "DATA_ADDRESS_PROPS": null,
-            "DEFAULT_EDITOR_UXON": "{\"widget_type\":\"Dialog\",\"widgets\":[{\"attribute_alias\":\"name\"},{\"attribute_alias\":\"importance\"},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Apply to\",\"widgets\":[{\"attribute_alias\":\"regex\"},{\"attribute_alias\":\"field\"},{\"attribute_alias\":\"account\"}]},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Assign\",\"widgets\":[{\"attribute_alias\":\"payee\"},{\"attribute_alias\":\"category\"},{\"attribute_alias\":\"transfer_to_account\"}]}]}",
+            "DEFAULT_EDITOR_UXON": "{\"widget_type\":\"Dialog\",\"widgets\":[{\"attribute_alias\":\"name\"},{\"attribute_alias\":\"importance\"},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Apply to\",\"widgets\":[{\"attribute_alias\":\"regex\"},{\"attribute_alias\":\"field\"},{\"attribute_alias\":\"account\"}]},{\"widget_type\":\"WidgetGroup\",\"caption\":\"Assign\",\"widgets\":[{\"attribute_alias\":\"payee\"},{\"attribute_alias\":\"category\"},{\"attribute_alias\":\"transfer_account\"}]}]}",
             "ALIAS": "import_rule",
             "DATA_ADDRESS": "import_rule"
         }
