@@ -165,7 +165,7 @@
     "rows": [
         {
             "CREATED_ON": "2019-04-16 19:43:16",
-            "MODIFIED_ON": "2019-04-16 19:44:00",
+            "MODIFIED_ON": "2019-06-22 06:27:08",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e9607fd8ef6435812a0205857feb80",
@@ -178,8 +178,8 @@
             "WRITABLEFLAG": "1",
             "SYSTEMFLAG": "0",
             "DEFAULT_EDITOR_UXON": null,
-            "COPY_WITH_RELATED_OBJECT": "0",
-            "DELETE_WITH_RELATED_OBJECT": "0",
+            "COPY_WITH_RELATED_OBJECT": "1",
+            "DELETE_WITH_RELATED_OBJECT": "1",
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
             "NAME": "Transaction",
