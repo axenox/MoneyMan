@@ -182,7 +182,7 @@ class ImportTransactionsPreview extends CreateData
                 $sheet->setCellValue('payee', $rowNr, $rule['payee']);
             }
             
-            if (! $row['transaction_category__category'] && $rule['category'] !== null) {
+            if (! $row['transaction_category__category'] && ! $row['transfer_transaction__account'] && $rule['category'] !== null) {
                 $sheet->setCellValue('transaction_category__category', $rowNr, $rule['category']);
             }
             
