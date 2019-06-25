@@ -13,6 +13,8 @@ use exface\Core\Exceptions\Actions\ActionRuntimeError;
 use exface\Core\DataTypes\ComparatorDataType;
 use exface\Core\DataTypes\DateDataType;
 use exface\Core\DataTypes\NumberDataType;
+use exface\Core\DataTypes\StringDataType;
+use exface\Core\CommonLogic\DataSheets\DataColumn;
 
 class ImportTransactionsPreview extends CreateData
 {
@@ -212,9 +214,10 @@ class ImportTransactionsPreview extends CreateData
              $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
              $cols = $ds->getColumns();
              $cols->addFromAttribute($ds->getMetaObject()->getUidAttribute());
-             $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date']);
+             $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date', 'transaction_category__category:LIST']);
              $ds->addFilterFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
              $ds->addFilterFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
+             $ds->addFilterFromColumnValues($inputSheet->getColumns()->get('account'));
              $ds->dataRead();
              $this->existingTransactions = $ds;
         }
@@ -226,23 +229,53 @@ class ImportTransactionsPreview extends CreateData
     {
         $existingData = $this->getExistingTransactions($enrichedData);
         foreach ($enrichedData->getRows() as $rowNr => $rowNew) {
+            $potentialMatches = [];
+            $exactMatches = [];
             foreach ($existingData->getRows() as $rowOld) {
-                if (NumberDataType::cast($rowNew['amount_booked']) == $rowOld['amount_booked'] && (! $rowNew['payee'] || $rowNew['payee'] === $rowOld['payee'])) {
+                if (NumberDataType::cast($rowNew['amount_booked']) == $rowOld['amount_booked']) {
                     $datetime1 = new \DateTime($rowOld['date']);
                     $datetime2 = new \DateTime($rowNew['date']);
                     $interval = $datetime1->diff($datetime2, true);
-                    $dateMatch = $interval->days <= $this->existingTransactionsDaysRange;
-                    
-                    $accountsMatch = $rowOld['account'] == $rowNew['account'] && $rowOld['transfer_transaction__account'] == $rowNew['transfer_transaction__account'];
-                    $accountsMatchReversed = $rowOld['transfer_transaction__account'] == $rowNew['account'] && $rowOld['account'] == $rowNew['transfer_transaction__account'];
-                    if ($dateMatch === true && ($accountsMatch || $accountsMatchReversed)) {
-                        $enrichedData->setCellValue('id', $rowNr, $rowOld['id']);
-                        continue 2;
+                    if ($interval->days <= $this->existingTransactionsDaysRange) {
+                        // If the payee matches, it's an exact ma
+                        if ($rowNew['payee'] === $rowOld['payee']) {
+                            $exactMatches[$rowNr] = $rowOld;
+                        } else {
+                            $potentialMatches[$rowNr] = $rowOld;
+                        }
                     }
                 }
             }
+            
+            if (empty($exactMatches) && empty($potentialMatches)) {
+                continue;
+            }
+            
+            if (count($exactMatches) === 1) {
+                $rowNr = array_keys($exactMatches)[0];
+                $rowOld = $exactMatches[$rowNr];
+                $enrichedData = $this->checkDuplicatesUpdateRow($enrichedData, $rowNr, $rowOld);
+                continue;
+            }
+            
+            if (count($potentialMatches) === 1) {
+                $rowNr = array_keys($potentialMatches)[0];
+                $rowOld = $potentialMatches[$rowNr];
+                $enrichedData = $this->checkDuplicatesUpdateRow($enrichedData, $rowNr, $rowOld);
+                continue;
+            }
         }
         return $enrichedData;
+    }
+    
+    protected function checkDuplicatesUpdateRow(DataSheetInterface $newData, int $rowNr, array $existingRow) {
+        $newData->setCellValue('id', $rowNr, $existingRow['id']);
+        $newData->setCellValue('payee', $rowNr, $existingRow['payee']);
+        $newData->setCellValue('transfer_transaction__account', $rowNr, $existingRow['transfer_transaction__account']);
+        $categories = $existingRow[DataColumn::sanitizeColumnName('transaction_category__category:LIST')];
+        $firstCategory = $categories !== null ? StringDataType::substringBefore($categories, ',', $categories) : null;
+        $newData->setCellValue('transaction_category__category', $rowNr, $firstCategory);
+        return $newData;
     }
     
     /**
