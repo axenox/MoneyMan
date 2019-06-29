@@ -32,9 +32,17 @@ class ImportTransactions extends ImportTransactionsPreview
         // properly in the importer
         $data_sheet->getColumns()->removeByKey('transaction_category__category');
         
-        // Remove duplicate transactions (= rows, where the id column has a value)
+        // Remove duplicate transactions (= rows, where the id column has a value) and
+        // separate transactions, that are only being cleared.
+        $clearedSheet = DataSheetFactory::createFromObject($data_sheet->getMetaObject());
         foreach ($data_sheet->getUidColumn()->getValues(false) as $nr => $uid) {
             if ($uid) {
+                if ($data_sheet->getCellValue('status', $nr) === 'P') {
+                    $clearedSheet->addRow([
+                        $data_sheet->getUidColumnName() => $uid,
+                        'status' => 'C'
+                    ]);
+                }
                 $data_sheet->removeRow($nr);
             }
         }
@@ -52,6 +60,11 @@ class ImportTransactions extends ImportTransactionsPreview
             $message = $this->getWorkbench()->getCoreApp()->getTranslator()->translate('ACTION.CREATEDATA.RESULT', ['%number%' => $affected_rows], $affected_rows);
         } else {
             $message = 'No new transactions found in imported data';
+        }
+        
+        if ($clearedSheet->isEmpty() === false) {
+            $affected_rows += $clearedSheet->dataUpdate(false, $transaction);
+            $message .= '; ' . $affected_rows . ' cleared';
         }
         
         $result = ResultFactory::createDataResult($task, $data_sheet, $message);

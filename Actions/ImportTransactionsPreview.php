@@ -214,7 +214,7 @@ class ImportTransactionsPreview extends CreateData
              $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
              $cols = $ds->getColumns();
              $cols->addFromAttribute($ds->getMetaObject()->getUidAttribute());
-             $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date', 'transaction_category__category:LIST']);
+             $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date', 'status', 'transaction_category__category:LIST']);
              $ds->addFilterFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
              $ds->addFilterFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
              $ds->addFilterFromColumnValues($inputSheet->getColumns()->get('account'));
@@ -270,6 +270,7 @@ class ImportTransactionsPreview extends CreateData
     
     protected function checkDuplicatesUpdateRow(DataSheetInterface $newData, int $rowNr, array $existingRow) {
         $newData->setCellValue('id', $rowNr, $existingRow['id']);
+        $newData->setCellValue('status', $rowNr, $existingRow['status']);
         $newData->setCellValue('payee', $rowNr, $existingRow['payee']);
         $newData->setCellValue('transfer_transaction__account', $rowNr, $existingRow['transfer_transaction__account']);
         $categories = $existingRow[DataColumn::sanitizeColumnName('transaction_category__category:LIST')];
