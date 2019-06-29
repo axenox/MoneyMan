@@ -44,6 +44,9 @@
             },
             {
                 "attribute_alias": "balance_reconciled"
+            },
+            {
+                "attribute_alias": "date_reconciled_max"
             }
         ],
         "buttons": [

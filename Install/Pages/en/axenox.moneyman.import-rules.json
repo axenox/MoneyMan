@@ -11,6 +11,14 @@
     "contents": {
         "widget_type": "DataTable",
         "object_alias": "axenox.MoneyMan.import_rule",
+        "filters": [
+            {
+                "attribute_alias": "name"
+            },
+            {
+                "attribute_alias": "regex"
+            }
+        ],
         "columns": [
             {
                 "attribute_group_alias": "~VISIBLE"

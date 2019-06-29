@@ -11,6 +11,14 @@
     "contents": {
         "widget_type": "DataTable",
         "object_alias": "axenox.MoneyMan.category",
+        "filters": [
+            {
+                "attribute_alias": "category_name"
+            },
+            {
+                "attribute_alias": "parent"
+            }
+        ],
         "columns": [
             {
                 "attribute_group_alias": "~VISIBLE"

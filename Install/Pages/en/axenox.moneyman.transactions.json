@@ -28,11 +28,15 @@
                 "attribute_alias": "transaction_category__category"
             },
             {
-                "attribute_alias": "status"
+                "attribute_alias": "status",
+                "multi_select": true
             },
             {
                 "attribute_alias": "note",
                 "widget_type": "Input"
+            },
+            {
+                "attribute_alias": "id"
             }
         ],
         "columns": [
@@ -71,6 +75,9 @@
             },
             {
                 "attribute_alias": "created_on"
+            },
+            {
+                "attribute_alias": "id"
             }
         ],
         "sorters": [
