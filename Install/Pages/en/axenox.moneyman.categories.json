@@ -21,7 +21,10 @@
         ],
         "columns": [
             {
-                "attribute_group_alias": "~VISIBLE"
+                "attribute_alias": "parent__LABEL"
+            },
+            {
+                "attribute_alias": "category_name"
             }
         ],
         "buttons": [

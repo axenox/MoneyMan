@@ -32,8 +32,19 @@
                 "multi_select": true
             },
             {
+                "attribute_alias": "amount_booked",
+                "comparator": ">="
+            },
+            {
+                "attribute_alias": "amount_booked",
+                "comparator": "<="
+            },
+            {
                 "attribute_alias": "note",
                 "widget_type": "Input"
+            },
+            {
+                "attribute_alias": "payee"
             },
             {
                 "attribute_alias": "id"
@@ -71,7 +82,7 @@
             },
             {
                 "attribute_alias": "note",
-                "width_max": "200px"
+                "width_max": "500px"
             },
             {
                 "attribute_alias": "created_on"

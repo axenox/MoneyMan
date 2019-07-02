@@ -1,0 +1,108 @@
+{
+    "id": "0xd85e81809b7211e9af950205857feb80",
+    "alias_with_namespace": "axenox.moneyman.monthly-spendings",
+    "menu_parent_page_alias": "axenox.moneyman.reports",
+    "menu_index": "0",
+    "menu_visible": true,
+    "name": "Monthly Spendings",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "SplitVertical",
+        "object_alias": "axenox.MoneyMan.transaction_category",
+        "panels": [
+            {
+                "height": "40%",
+                "widgets": [
+                    {
+                        "widget_type": "Chart",
+                        "id": "upper_chart",
+                        "data": {
+                            "aggregate_by_attribute_alias": [
+                                "transaction__date_year_month",
+                                "transaction__date_year_month_name"
+                            ],
+                            "filters": [
+                                {
+                                    "attribute_alias": "transaction__date",
+                                    "comparator": ">=",
+                                    "value": "-1y"
+                                },
+                                {
+                                    "attribute_alias": "transaction__account"
+                                },
+                                {
+                                    "attribute_alias": "transaction__currency_booked",
+                                    "value": 1,
+                                    "id": "currency_selector"
+                                },
+                                {
+                                    "attribute_alias": "category"
+                                }
+                            ],
+                            "sorters": [
+                                {
+                                    "attribute_alias": "transaction__date_year_month",
+                                    "direction": "asc"
+                                }
+                            ]
+                        },
+                        "series": [
+                            {
+                                "type": "line",
+                                "x_attribute_alias": "transaction__date_year_month_name",
+                                "y_attribute_alias": "amount:SUM"
+                            }
+                        ],
+                        "axis_x": [
+                            {
+                                "attribute_alias": "transaction__date_year_month_name",
+                                "rotate_labels": true,
+                                "hide_caption": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "widgets": [
+                    {
+                        "widget_type": "DataTable",
+                        "object_alias": "axenox.MoneyMan.transaction_category",
+                        "aggregate_by_attribute_alias": [
+                            "category"
+                        ],
+                        "filters": [
+                            {
+                                "attribute_alias": "transaction__date_year_month_name",
+                                "comparator": "==",
+                                "value": "=upper_chart!transaction__date_year_month_name",
+                                "apply_on_change": true,
+                                "required": true,
+                                "disabled": true
+                            },
+                            {
+                                "attribute_alias": "transaction__currency_booked",
+                                "comparator": "==",
+                                "value": "=currency_selector!id",
+                                "apply_on_change": true,
+                                "required": true,
+                                "disabled": true
+                            }
+                        ],
+                        "columns": [
+                            {
+                                "attribute_alias": "category__LABEL"
+                            },
+                            {
+                                "attribute_alias": "amount:SUM",
+                                "footer": "SUM"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
