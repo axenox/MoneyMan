@@ -26,7 +26,7 @@ class ImportTransactionsPreview extends CreateData
     
     private $existingTransactions = null;
     
-    private $existingTransactionsDaysRange = 4;
+    private $existingTransactionsDaysRange = 5;
     
     /**
      * 
@@ -136,7 +136,7 @@ class ImportTransactionsPreview extends CreateData
         if ($this->rules === null) {
             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.import_rule');
             $ds->getColumns()->addMultiple(['account', 'field', 'regex', 'importance', 'category', 'payee', 'transfer_account']);
-            $ds->getSorters()->addFromString('importance', SortingDirectionsDataType::ASC);
+            $ds->getSorters()->addFromString('importance', SortingDirectionsDataType::DESC);
             $ds->dataRead();
             $this->rules = $ds;
         }
