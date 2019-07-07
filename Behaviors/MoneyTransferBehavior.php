@@ -13,6 +13,8 @@ use exface\Core\Exceptions\RuntimeException;
 use exface\Core\DataTypes\StringDataType;
 use exface\Core\Events\DataSheet\OnCreateDataEvent;
 use exface\Core\Events\DataSheet\OnUpdateDataEvent;
+use exface\Core\DataTypes\NumberDataType;
+use exface\Core\Exceptions\Behaviors\BehaviorRuntimeError;
 
 /**
  * 
@@ -23,6 +25,8 @@ use exface\Core\Events\DataSheet\OnUpdateDataEvent;
 class MoneyTransferBehavior extends AbstractBehavior
 {    
     private $createdTransferRows = [];
+    
+    private $createdTransfers = null;
     
     private $processingTransferRows = false;
     
@@ -68,6 +72,8 @@ class MoneyTransferBehavior extends AbstractBehavior
                     ];
                 }
             }
+            
+            $this->createdTransfers = $transferSheet;
         }
         
         foreach ($txSheet->getColumns() as $col) {
@@ -93,8 +99,13 @@ class MoneyTransferBehavior extends AbstractBehavior
         
         $tfCol = $txSheet->getColumns()->get('transfer_transaction');
         foreach ($this->createdTransferRows as $rowIdx => $row) {
-            $txId = $txSheet->getUidColumn()->getCellValue($tfCol->findRowByValue($row['id']));
-            $this->createdTransferRows[$rowIdx]['transfer_transaction'] = $txId;   
+            $txRowNr = $tfCol->findRowByValue($row['id']);
+            $txRow = $txSheet->getRow($txRowNr);
+            $txId = $txRow[$txSheet->getUidColumnName()];
+            $this->createdTransferRows[$rowIdx]['transfer_transaction'] = $txId;  
+            if ($txRow['transfer_transaction'] != $this->createdTransferRows[$rowIdx]['id'] || $txRow['id'] != $this->createdTransferRows[$rowIdx]['transfer_transaction']) {
+                throw new BehaviorRuntimeError($this->getObject(), 'Inconsistent data detected when creating transfer transaction for transaction "' . $txRow['date'] . ', ' . $txRow['amount_booked'] . ', ' . $txRow['note'] . '"!');
+            }
         }
         
         $transferUpdateSheet = DataSheetFactory::createFromObject($txSheet->getMetaObject());
@@ -131,7 +142,7 @@ class MoneyTransferBehavior extends AbstractBehavior
             $row['date'] = $txRow['date'];
             $row['transfer_transaction'] = $txRow['id'];
             if ($row['amount_booked'] === null && $txRow['amount_booked'] !== null) {
-                $row['amount_booked'] = (-1) * $txRow['amount_booked'];
+                $row['amount_booked'] = (-1) * NumberDataType::cast($txRow['amount_booked']);
             }
             if ($row['currency_booked'] === null && $txRow['currency_booked'] !== null) {
                 $row['currency_booked'] = $txRow['currency_booked'];

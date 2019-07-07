@@ -34,16 +34,25 @@ class ImportTransactions extends ImportTransactionsPreview
         
         // Remove duplicate transactions (= rows, where the id column has a value) and
         // separate transactions, that are only being cleared.
+        // IMPORTANT: traverse the rows in reverse order because we remove rows by row
+        // number and if we would remove a lower row number all subsequent rows would
+        // get reindexed, so the next time we remove an index, it would point to a totally
+        // different row!!! Reversing the direction makes sure, removing a row never changes
+        // indexes of rows still to be checked.
         $clearedSheet = DataSheetFactory::createFromObject($data_sheet->getMetaObject());
-        foreach ($data_sheet->getUidColumn()->getValues(false) as $nr => $uid) {
-            if ($uid) {
-                if ($data_sheet->getCellValue('status', $nr) === 'P') {
+        $uidName = $data_sheet->getUidColumnName();
+        $rows = $data_sheet->getRows();
+        $rowsCnt = $data_sheet->countRows();
+        for ($nr = $rowsCnt-1; $nr >= 0; $nr--) {
+            $row = $rows[$nr];
+            if ($row[$uidName]) {
+                if ($row['status'] === 'P') {
                     $clearedSheet->addRow([
-                        $data_sheet->getUidColumnName() => $uid,
+                        $uidName => $row[$uidName],
                         'status' => 'C'
                     ]);
                 }
-                $data_sheet->removeRow($nr);
+                $data_sheet->removeRow($nr, true);
             }
         }
         
