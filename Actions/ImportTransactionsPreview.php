@@ -49,7 +49,9 @@ class ImportTransactionsPreview extends CreateData
     {
         $data_sheet = $this->getInputDataSheet($task);
         $data_sheet = $this->enrichData($data_sheet);
-        return $this->checkDuplicates($data_sheet);
+        $data_sheet = $this->checkDuplicates($data_sheet);
+        $data_sheet->setAutoCount(false);
+        return $data_sheet;
     }
     
     /**
@@ -71,7 +73,11 @@ class ImportTransactionsPreview extends CreateData
             
             if (! $row['transfer_transaction__account'] && ! $row['transaction_category']) {
                 if (! $row['transaction_category__category'] && $row['payee']) {
-                    $row['transaction_category__category'] = $this->getDefaultCategory($row['payee']);
+                    $defaultCategory = $this->getDefaultCategory($row['payee']);
+                    if ($defaultCategory > 0) {
+                        $row['transaction_category__category'] = $defaultCategory;
+                        $sheet->setCellValue('transaction_category__category', $nr, $defaultCategory);
+                    }
                 }
                 
                 if ($row['transaction_category__category']) {
