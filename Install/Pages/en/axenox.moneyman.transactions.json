@@ -32,12 +32,16 @@
                 "multi_select": true
             },
             {
-                "attribute_alias": "amount_booked",
+                "attribute_alias": "amount_booked_abs",
                 "comparator": ">="
             },
             {
-                "attribute_alias": "amount_booked",
+                "attribute_alias": "amount_booked_abs",
                 "comparator": "<="
+            },
+            {
+                "attribute_alias": "amount_booked_abs",
+                "comparator": "=="
             },
             {
                 "attribute_alias": "note",
@@ -74,6 +78,9 @@
                 "attribute_alias": "currency_booked__currency_symbol"
             },
             {
+                "attribute_alias": "transaction_category__amount:SUM"
+            },
+            {
                 "attribute_alias": "transaction_category__category__category_name:LIST_DISTINCT"
             },
             {
@@ -82,7 +89,7 @@
             },
             {
                 "attribute_alias": "note",
-                "width_max": "500px"
+                "width": "500px"
             },
             {
                 "attribute_alias": "created_on"

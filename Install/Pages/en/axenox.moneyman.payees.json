@@ -11,6 +11,14 @@
     "contents": {
         "widget_type": "DataTable",
         "object_alias": "axenox.MoneyMan.payee",
+        "filters": [
+            {
+                "attribute_alias": "payee"
+            },
+            {
+                "attribute_alias": "default_category"
+            }
+        ],
         "columns": [
             {
                 "attribute_group_alias": "~VISIBLE"

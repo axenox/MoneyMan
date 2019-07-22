@@ -2,29 +2,51 @@
     "id": "0x766f19be5fb111e9ad950205857feb80",
     "alias_with_namespace": "axenox.moneyman.categories",
     "menu_parent_page_alias": "axenox.moneyman.configuration",
-    "menu_index": "0",
+    "menu_index": "1",
     "menu_visible": true,
     "name": "Categories",
     "description": "",
     "intro": "",
     "replaces_page_alias": null,
     "contents": {
-        "widget_type": "DataTable",
+        "widget_type": "DataTree",
         "object_alias": "axenox.MoneyMan.category",
+        "tree_parent_id_attribute_alias": "parent",
+        "tree_folder_flag_attribute_alias": "has_subcategories",
         "filters": [
             {
                 "attribute_alias": "category_name"
             },
             {
                 "attribute_alias": "parent"
+            },
+            {
+                "attribute_alias": "category_type"
+            }
+        ],
+        "sorters": [
+            {
+                "attribute_alias": "category_type",
+                "direction": "asc"
+            },
+            {
+                "attribute_alias": "LABEL",
+                "direction": "asc"
             }
         ],
         "columns": [
             {
-                "attribute_alias": "parent__LABEL"
+                "attribute_alias": "category_name"
             },
             {
-                "attribute_alias": "category_name"
+                "attribute_alias": "category_type__LABEL"
+            },
+            {
+                "attribute_alias": "id"
+            },
+            {
+                "attribute_alias": "transaction_category__id:COUNT",
+                "caption": "Transactions"
             }
         ],
         "buttons": [

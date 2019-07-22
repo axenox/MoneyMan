@@ -2,7 +2,7 @@
     "id": "0x04d00dbe809411e9b0cc0205857feb80",
     "alias_with_namespace": "axenox.moneyman.import-rules",
     "menu_parent_page_alias": "axenox.moneyman.configuration",
-    "menu_index": "0",
+    "menu_index": "3",
     "menu_visible": true,
     "name": "Import Rules",
     "description": "",

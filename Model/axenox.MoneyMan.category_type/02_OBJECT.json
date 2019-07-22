@@ -80,16 +80,16 @@
     ],
     "rows": [
         {
-            "CREATED_ON": "2019-04-14 06:25:37",
-            "MODIFIED_ON": "2019-07-22 09:46:21",
+            "CREATED_ON": "2019-07-22 09:45:33",
+            "MODIFIED_ON": "2019-07-22 09:45:51",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
-            "UID": "0x11e95e7e15e2d1599677e4b318306b9a",
+            "UID": "0x11e9ac655447ae6f96fae4b318306b9a",
             "READABLE_FLAG": "1",
             "WRITABLE_FLAG": "1",
             "COMMENTS": "",
             "DOCS": "",
-            "NAME": "Category",
+            "NAME": "Category type",
             "INHERIT_DATA_SOURCE_BASE_OBJECT": "1",
             "DATA_SOURCE": "0x11e95e7b68dba8099677e4b318306b9a",
             "APP": "0x11e95e229cf921a39677e4b318306b9a",
@@ -97,8 +97,8 @@
             "PARENT_OBJECT": "",
             "DATA_ADDRESS_PROPS": null,
             "DEFAULT_EDITOR_UXON": null,
-            "ALIAS": "category",
-            "DATA_ADDRESS": "category"
+            "ALIAS": "category_type",
+            "DATA_ADDRESS": "category_type"
         }
     ],
     "totals_rows": [],

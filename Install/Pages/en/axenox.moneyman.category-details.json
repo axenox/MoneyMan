@@ -1,0 +1,250 @@
+{
+    "id": "0x32abb404aac911e9b3e90205857feb80",
+    "alias_with_namespace": "axenox.moneyman.category-details",
+    "menu_parent_page_alias": "axenox.moneyman.reports",
+    "menu_index": "1",
+    "menu_visible": true,
+    "name": "Category Details",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "SplitVertical",
+        "object_alias": "axenox.MoneyMan.transaction_category",
+        "panels": [
+            {
+                "height": "70%",
+                "widgets": [
+                    {
+                        "widget_type": "SplitHorizontal",
+                        "panels": [
+                            {
+                                "caption": "Categories",
+                                "width": "50%",
+                                "widgets": [
+                                    {
+                                        "widget_type": "Chart",
+                                        "id": "upper_chart",
+                                        "data": {
+                                            "object_alias": "axenox.MoneyMan.transaction_category",
+                                            "aggregate_by_attribute_alias": [
+                                                "category"
+                                            ],
+                                            "filters": [
+                                                {
+                                                    "attribute_alias": "category__category_type",
+                                                    "value": 1
+                                                },
+                                                {
+                                                    "attribute_alias": "transaction__date",
+                                                    "id": "date_filter_from",
+                                                    "comparator": ">=",
+                                                    "value": -365
+                                                },
+                                                {
+                                                    "attribute_alias": "transaction__date",
+                                                    "id": "date_filter_to",
+                                                    "comparator": "<="
+                                                },
+                                                {
+                                                    "attribute_alias": "transaction__currency_booked",
+                                                    "comparator": "==",
+                                                    "value": 1,
+                                                    "id": "currency_selector"
+                                                }
+                                            ],
+                                            "sorters": [
+                                                {
+                                                    "attribute_alias": "amount_abs:SUM",
+                                                    "direction": "desc"
+                                                }
+                                            ]
+                                        },
+                                        "series": [
+                                            {
+                                                "type": "column",
+                                                "x_attribute_alias": "category__LABEL",
+                                                "y_attribute_alias": "amount_abs:SUM"
+                                            }
+                                        ],
+                                        "axis_x": [
+                                            {
+                                                "attribute_alias": "category__LABEL",
+                                                "rotate_labels": true,
+                                                "hide_caption": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "caption": "Transactions",
+                                "widgets": [
+                                    {
+                                        "widget_type": "DataTable",
+                                        "object_alias": "axenox.MoneyMan.transaction",
+                                        "filters": [
+                                            {
+                                                "attribute_alias": "transfer_flag",
+                                                "comparator": "==",
+                                                "value": 0,
+                                                "widget_type": "InputHidden"
+                                            },
+                                            {
+                                                "attribute_alias": "currency_booked",
+                                                "comparator": "==",
+                                                "value": "=currency_selector!id",
+                                                "required": true,
+                                                "widget_type": "InputHidden",
+                                                "apply_on_change": true
+                                            },
+                                            {
+                                                "attribute_alias": "date_year_month_name",
+                                                "value": "=lower_chart!transaction__date_year_month_name",
+                                                "comparator": "==",
+                                                "apply_on_change": true
+                                            },
+                                            {
+                                                "attribute_alias": "date",
+                                                "comparator": ">=",
+                                                "value": "=date_filter_from",
+                                                "apply_on_change": true,
+                                                "widget_type": "InputHidden"
+                                            },
+                                            {
+                                                "attribute_alias": "date",
+                                                "comparator": "<=",
+                                                "value": "=date_filter_to",
+                                                "apply_on_change": true,
+                                                "widget_type": "InputHidden"
+                                            },
+                                            {
+                                                "attribute_alias": "transaction_category__category",
+                                                "comparator": "==",
+                                                "value": "=upper_chart!category",
+                                                "widget_type": "InputHidden",
+                                                "apply_on_change": true,
+                                                "required": true
+                                            }
+                                        ],
+                                        "columns": [
+                                            {
+                                                "attribute_alias": "date"
+                                            },
+                                            {
+                                                "attribute_alias": "account__LABEL"
+                                            },
+                                            {
+                                                "attribute_alias": "payee__LABEL"
+                                            },
+                                            {
+                                                "attribute_alias": "transaction_category__amount:SUM",
+                                                "footer": "SUM"
+                                            },
+                                            {
+                                                "attribute_alias": "transaction_category__category__category_name:LIST_DISTINCT"
+                                            },
+                                            {
+                                                "attribute_alias": "note",
+                                                "width": "300px"
+                                            },
+                                            {
+                                                "attribute_alias": "created_on"
+                                            },
+                                            {
+                                                "attribute_alias": "id"
+                                            }
+                                        ],
+                                        "sorters": [
+                                            {
+                                                "attribute_alias": "amount_booked",
+                                                "direction": "asc"
+                                            }
+                                        ],
+                                        "buttons": [
+                                            {
+                                                "action_alias": "exface.Core.ShowObjectEditDialog",
+                                                "bind_to_double_click": true
+                                            },
+                                            {
+                                                "action_alias": "exface.Core.DeleteObject",
+                                                "visibility": "optional"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "widgets": [
+                    {
+                        "widget_type": "Chart",
+                        "id": "lower_chart",
+                        "data": {
+                            "paginate": false,
+                            "hide_header": true,
+                            "aggregate_by_attribute_alias": [
+                                "transaction__date_year_month",
+                                "transaction__date_year_month_name"
+                            ],
+                            "filters": [
+                                {
+                                    "attribute_alias": "category",
+                                    "required": true,
+                                    "apply_on_change": true,
+                                    "value": "=upper_chart!category",
+                                    "widget_type": "InputHidden"
+                                },
+                                {
+                                    "attribute_alias": "transaction__date",
+                                    "comparator": ">=",
+                                    "value": "=date_filter_from",
+                                    "apply_on_change": true,
+                                    "widget_type": "InputHidden"
+                                },
+                                {
+                                    "attribute_alias": "transaction__date",
+                                    "comparator": "<=",
+                                    "value": "=date_filter_to",
+                                    "apply_on_change": true,
+                                    "widget_type": "InputHidden"
+                                },
+                                {
+                                    "attribute_alias": "transaction__currency_booked",
+                                    "value": "=currency_selector!id",
+                                    "comparator": "==",
+                                    "apply_on_change": true,
+                                    "required": true,
+                                    "widget_type": "InputHidden"
+                                }
+                            ],
+                            "sorters": [
+                                {
+                                    "attribute_alias": "transaction__date_year_month",
+                                    "direction": "asc"
+                                }
+                            ]
+                        },
+                        "series": [
+                            {
+                                "type": "line",
+                                "x_attribute_alias": "transaction__date_year_month_name",
+                                "y_attribute_alias": "amount_abs:SUM"
+                            }
+                        ],
+                        "axis_x": [
+                            {
+                                "attribute_alias": "transaction__date_year_month_name",
+                                "rotate_labels": true,
+                                "hide_caption": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
