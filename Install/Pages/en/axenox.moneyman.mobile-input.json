@@ -1,16 +1,17 @@
 {
-    "id": "0x2a35ee9a5fb311e99ca00205857feb80",
-    "alias_with_namespace": "axenox.moneyman.transactions",
+    "id": "0x45c96e34b6cf11e9aaa60205857feb80",
+    "alias_with_namespace": "axenox.moneyman.mobile-input",
     "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
     "menu_index": "0",
     "menu_visible": true,
-    "name": "Transactions",
+    "name": "Mobile Input",
     "description": "",
     "intro": "",
     "replaces_page_alias": null,
     "contents": {
-        "widget_type": "DataTable",
+        "widget_type": "DataTableResponsive",
         "object_alias": "axenox.MoneyMan.transaction",
+        "nowrap": false,
         "filters": [
             {
                 "attribute_alias": "account"
@@ -18,7 +19,7 @@
             {
                 "attribute_alias": "date",
                 "comparator": ">=",
-                "value": -90
+                "value": -30
             },
             {
                 "attribute_alias": "date",
@@ -62,7 +63,8 @@
                 }
             },
             {
-                "attribute_alias": "date"
+                "attribute_alias": "date",
+                "visibility": "promoted"
             },
             {
                 "attribute_alias": "account__LABEL"
@@ -78,10 +80,6 @@
                 "attribute_alias": "currency_booked__currency_symbol"
             },
             {
-                "attribute_alias": "transaction_category__amount:SUM",
-                "caption": "Spendings"
-            },
-            {
                 "attribute_alias": "transaction_category__category__category_name:LIST_DISTINCT"
             },
             {
@@ -89,8 +87,7 @@
                 "caption": "Transfer to\/from"
             },
             {
-                "attribute_alias": "note",
-                "width": "500px"
+                "attribute_alias": "note"
             },
             {
                 "attribute_alias": "created_on"
@@ -107,17 +104,19 @@
         ],
         "buttons": [
             {
+                "action_alias": "axenox.MoneyMan.ShowTransferCreateDialog",
+                "caption": "Transfer"
+            },
+            {
+                "action_alias": "axenox.MoneyMan.ShowTransactionCreateDialog",
+                "caption": "Transaction"
+            },
+            {
                 "action_alias": "exface.Core.ShowObjectEditDialog",
                 "bind_to_double_click": true
             },
             {
-                "action_alias": "exface.Core.ShowObjectCreateDialog"
-            },
-            {
                 "action_alias": "exface.Core.ShowObjectCopyDialog"
-            },
-            {
-                "action_alias": "axenox.MoneyMan.ShowTransactionImportDialog"
             },
             {
                 "action_alias": "exface.Core.DeleteObject",
