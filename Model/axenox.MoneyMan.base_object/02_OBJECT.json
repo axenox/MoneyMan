@@ -81,7 +81,7 @@
     "rows": [
         {
             "CREATED_ON": "2019-04-14 06:13:45",
-            "MODIFIED_ON": "2019-04-14 06:32:03",
+            "MODIFIED_ON": "2019-08-11 12:52:31",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e95e7c6db9158e9677e4b318306b9a",
@@ -89,7 +89,7 @@
             "WRITABLE_FLAG": "0",
             "COMMENTS": "",
             "DOCS": "",
-            "NAME": "PFin Base Object",
+            "NAME": "MoneyMan Base Object",
             "INHERIT_DATA_SOURCE_BASE_OBJECT": "1",
             "DATA_SOURCE": "",
             "APP": "0x11e95e229cf921a39677e4b318306b9a",
