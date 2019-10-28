@@ -63,7 +63,7 @@
             "CONFIG": "{\"host\":\"localhost\",\"dbase\":\"axenox_pfin\",\"user\":\"root\",\"character_set\":\"utf8\",\"connection_method\":\"SET CHARACTER SET\",\"password\":\"\",\"relation_matcher\":\"\\\/(?<alias>(?<table>.*))_(?<key>id)\\\/i\"}",
             "READONLY": "0",
             "ALIAS": "PFIN_LOCAL",
-            "FILTER_CONTEXT": ""
+            "FILTER_CONTEXT": null
         }
     ],
     "totals_rows": [],
