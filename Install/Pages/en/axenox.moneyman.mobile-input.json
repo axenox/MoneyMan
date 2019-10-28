@@ -1,7 +1,7 @@
 {
     "id": "0x45c96e34b6cf11e9aaa60205857feb80",
     "alias_with_namespace": "axenox.moneyman.mobile-input",
-    "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
+    "menu_parent_page_alias": "axenox.moneyman.personal-finance",
     "menu_index": "0",
     "menu_visible": true,
     "name": "Mobile Input",

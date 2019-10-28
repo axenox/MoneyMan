@@ -1,7 +1,7 @@
 {
     "id": "0xa4e991705fb111e9ad870205857feb80",
     "alias_with_namespace": "axenox.moneyman.accounts",
-    "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
+    "menu_parent_page_alias": "axenox.moneyman.personal-finance",
     "menu_index": "2",
     "menu_visible": true,
     "name": "Accounts",

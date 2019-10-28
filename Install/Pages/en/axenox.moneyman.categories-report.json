@@ -1,0 +1,65 @@
+{
+    "id": "0xb4d49db2e7a811e9988f0050568905af",
+    "alias_with_namespace": "axenox.moneyman.categories-report",
+    "menu_parent_page_alias": "axenox.moneyman.reports",
+    "menu_index": "2",
+    "menu_visible": true,
+    "name": "Categories",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "Chart",
+        "object_alias": "axenox.MoneyMan.transaction_category",
+        "data": {
+            "paginate": false,
+            "hide_header": true,
+            "aggregate_by_attribute_alias": [
+                "transaction__date_year_month",
+                "transaction__date_year_month_name"
+            ],
+            "filters": [
+                {
+                    "attribute_alias": "category",
+                    "widget_type": "InputComboTable",
+                    "multi_select": true
+                },
+                {
+                    "attribute_alias": "transaction__date",
+                    "comparator": ">=",
+                    "value": -360
+                },
+                {
+                    "attribute_alias": "transaction__date",
+                    "comparator": "<="
+                },
+                {
+                    "attribute_alias": "transaction__currency_booked",
+                    "value": 1,
+                    "comparator": "=="
+                }
+            ],
+            "sorters": [
+                {
+                    "attribute_alias": "transaction__date_year_month",
+                    "direction": "asc"
+                }
+            ]
+        },
+        "series": [
+            {
+                "type": "line",
+                "x_attribute_alias": "transaction__date_year_month_name",
+                "y_attribute_alias": "amount:SUM",
+                "split_by_attribute_alias": "category__LABEL"
+            }
+        ],
+        "axis_x": [
+            {
+                "attribute_alias": "transaction__date_year_month_name",
+                "rotate_labels": true,
+                "hide_caption": true
+            }
+        ]
+    }
+}

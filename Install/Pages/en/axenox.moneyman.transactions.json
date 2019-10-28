@@ -1,7 +1,7 @@
 {
     "id": "0x2a35ee9a5fb311e99ca00205857feb80",
     "alias_with_namespace": "axenox.moneyman.transactions",
-    "menu_parent_page_alias": "axenox.MoneyMan.personal-finance",
+    "menu_parent_page_alias": "axenox.moneyman.personal-finance",
     "menu_index": "0",
     "menu_visible": true,
     "name": "Transactions",
@@ -49,6 +49,9 @@
             },
             {
                 "attribute_alias": "payee"
+            },
+            {
+                "attribute_alias": "transfer_flag"
             },
             {
                 "attribute_alias": "id"
@@ -102,6 +105,10 @@
         "sorters": [
             {
                 "attribute_alias": "date",
+                "direction": "desc"
+            },
+            {
+                "attribute_alias": "id",
                 "direction": "desc"
             }
         ],
