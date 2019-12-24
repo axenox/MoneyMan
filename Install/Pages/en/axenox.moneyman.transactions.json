@@ -17,12 +17,8 @@
             },
             {
                 "attribute_alias": "date",
-                "comparator": ">=",
-                "value": -90
-            },
-            {
-                "attribute_alias": "date",
-                "comparator": "<="
+                "widget_type": "RangeFilter",
+                "value_from": -90
             },
             {
                 "attribute_alias": "transaction_category__category"
@@ -33,11 +29,7 @@
             },
             {
                 "attribute_alias": "amount_booked_abs",
-                "comparator": ">="
-            },
-            {
-                "attribute_alias": "amount_booked_abs",
-                "comparator": "<="
+                "widget_type": "RangeFilter"
             },
             {
                 "attribute_alias": "amount_booked_abs",

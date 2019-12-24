@@ -34,15 +34,8 @@
             },
             {
                 "attribute_alias": "amount_booked_abs",
-                "comparator": ">="
-            },
-            {
-                "attribute_alias": "amount_booked_abs",
-                "comparator": "<="
-            },
-            {
-                "attribute_alias": "amount_booked_abs",
-                "comparator": "=="
+                "comparator": "==",
+                "widget_type": "Input"
             },
             {
                 "attribute_alias": "note",
@@ -50,9 +43,6 @@
             },
             {
                 "attribute_alias": "payee"
-            },
-            {
-                "attribute_alias": "id"
             }
         ],
         "columns": [
@@ -80,7 +70,8 @@
                 "attribute_alias": "currency_booked__currency_symbol"
             },
             {
-                "attribute_alias": "transaction_category__category__category_name:LIST_DISTINCT"
+                "attribute_alias": "transaction_category__category__category_name:LIST_DISTINCT",
+                "caption": "Categories"
             },
             {
                 "attribute_alias": "transfer_transaction__account__LABEL",
@@ -91,9 +82,6 @@
             },
             {
                 "attribute_alias": "created_on"
-            },
-            {
-                "attribute_alias": "id"
             }
         ],
         "sorters": [
