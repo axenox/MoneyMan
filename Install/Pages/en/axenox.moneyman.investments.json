@@ -1,0 +1,80 @@
+{
+    "id": "0x1aafb044347111eab7a80205857feb80",
+    "alias_with_namespace": "axenox.moneyman.investments",
+    "menu_parent_page_alias": "axenox.moneyman.investment-types",
+    "menu_index": "0",
+    "menu_visible": true,
+    "name": "Investments",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "DataTable",
+        "object_alias": "axenox.MoneyMan.investment_transaction",
+        "filters": [
+            {
+                "attribute_alias": "transaction__account"
+            },
+            {
+                "attribute_alias": "investment"
+            },
+            {
+                "attribute_alias": "transaction__date",
+                "widget_type": "RangeFilter"
+            },
+            {
+                "attribute_alias": "transaction__amount_booked_abs",
+                "widget_type": "RangeFilter"
+            }
+        ],
+        "columns": [
+            {
+                "attribute_alias": "transaction__date"
+            },
+            {
+                "attribute_alias": "investment__LABEL"
+            },
+            {
+                "attribute_alias": "shares"
+            },
+            {
+                "attribute_alias": "price"
+            },
+            {
+                "attribute_alias": "currency__LABEL"
+            },
+            {
+                "attribute_alias": "transaction__amount_booked"
+            }
+        ],
+        "sorters": [
+            {
+                "attribute_alias": "transaction__date",
+                "direction": "desc"
+            },
+            {
+                "attribute_alias": "id",
+                "direction": "desc"
+            }
+        ],
+        "buttons": [
+            {
+                "action_alias": "exface.Core.ShowObjectCreateDialog"
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectEditDialog",
+                "bind_to_double_click": true
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectCopyDialog"
+            },
+            {
+                "action_alias": "axenox.MoneyMan.ShowInvestmentImportDialog"
+            },
+            {
+                "action_alias": "exface.Core.DeleteObject",
+                "visibility": "optional"
+            }
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "id": "0x72e6e71e33ea11eaab440205857feb80",
+    "alias_with_namespace": "axenox.moneyman.investment-types",
+    "menu_parent_page_alias": "axenox.moneyman.configuration",
+    "menu_index": "5",
+    "menu_visible": true,
+    "name": "Investments",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "DataTable",
+        "object_alias": "axenox.MoneyMan.investment",
+        "columns": [
+            {
+                "attribute_group_alias": "~VISIBLE"
+            }
+        ],
+        "buttons": [
+            {
+                "action_alias": "exface.Core.ShowObjectCreateDialog"
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectEditDialog",
+                "bind_to_double_click": true
+            },
+            {
+                "action_alias": "exface.Core.ShowObjectCopyDialog"
+            },
+            {
+                "action_alias": "exface.Core.DeleteObject",
+                "visibility": "optional"
+            }
+        ]
+    }
+}

@@ -25,10 +25,10 @@
         ],
         "columns": [
             {
-                "attribute_alias": "account_type__LABEL"
+                "attribute_alias": "account_name"
             },
             {
-                "attribute_alias": "account_name"
+                "attribute_alias": "account_type__LABEL"
             },
             {
                 "attribute_alias": "inactive_flag"

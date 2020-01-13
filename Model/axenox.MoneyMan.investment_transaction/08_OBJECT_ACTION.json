@@ -1,0 +1,103 @@
+{
+    "object_alias": "exface.Core.OBJECT_ACTION",
+    "columns": [
+        {
+            "name": "CREATED_ON",
+            "attribute_alias": "CREATED_ON"
+        },
+        {
+            "name": "MODIFIED_ON",
+            "attribute_alias": "MODIFIED_ON"
+        },
+        {
+            "name": "CREATED_BY_USER",
+            "attribute_alias": "CREATED_BY_USER"
+        },
+        {
+            "name": "MODIFIED_BY_USER",
+            "attribute_alias": "MODIFIED_BY_USER"
+        },
+        {
+            "name": "UID",
+            "attribute_alias": "UID"
+        },
+        {
+            "name": "OBJECT",
+            "attribute_alias": "OBJECT"
+        },
+        {
+            "name": "ACTION_PROTOTYPE",
+            "attribute_alias": "ACTION_PROTOTYPE"
+        },
+        {
+            "name": "ALIAS",
+            "attribute_alias": "ALIAS"
+        },
+        {
+            "name": "NAME",
+            "attribute_alias": "NAME"
+        },
+        {
+            "name": "SHORT_DESCRIPTION",
+            "attribute_alias": "SHORT_DESCRIPTION"
+        },
+        {
+            "name": "CONFIG_UXON",
+            "attribute_alias": "CONFIG_UXON"
+        },
+        {
+            "name": "APP",
+            "attribute_alias": "APP"
+        },
+        {
+            "name": "USE_IN_OBJECT_BASKET_FLAG",
+            "attribute_alias": "USE_IN_OBJECT_BASKET_FLAG"
+        },
+        {
+            "name": "DOCS",
+            "attribute_alias": "DOCS"
+        }
+    ],
+    "rows": [
+        {
+            "CREATED_ON": "2020-01-11 13:01:56",
+            "MODIFIED_ON": "2020-01-11 21:09:11",
+            "CREATED_BY_USER": "0x31000000000000000000000000000000",
+            "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
+            "UID": "0x11ea3472868f4a45b32f0205857feb80",
+            "OBJECT": "0x11ea33e992a2d660b32f0205857feb80",
+            "ACTION_PROTOTYPE": "exface\/Core\/Actions\/ShowDialog.php",
+            "ALIAS": "ShowInvestmentImportDialog",
+            "NAME": "Import Transactions",
+            "SHORT_DESCRIPTION": "",
+            "CONFIG_UXON": "{\"icon\":\"table\",\"widget\":{\"widget_type\":\"Dialog\",\"object_alias\":\"axenox.MoneyMan.investment_transaction\",\"maximized\":true,\"widgets\":[{\"widget_type\":\"DataImporter\",\"columns\":[{\"attribute_alias\":\"transaction__date\"},{\"attribute_alias\":\"investment__wkn\"},{\"attribute_alias\":\"shares\"},{\"attribute_alias\":\"price\"},{\"attribute_alias\":\"transaction__amount_booked\"},{\"attribute_alias\":\"currency\",\"cell_widget\":{\"widget_type\":\"InputCombo\",\"lazy_loading\":false}},{\"attribute_alias\":\"transaction__account\",\"cell_widget\":{\"widget_type\":\"InputCombo\",\"lazy_loading\":false}},{\"attribute_alias\":\"id\",\"editable\":false}]}],\"buttons\":[{\"action_alias\":\"axenox.MoneyMan.ImportInvestments\",\"visibility\":\"promoted\",\"align\":\"opposite\"}]}}",
+            "APP": "0x11e95e229cf921a39677e4b318306b9a",
+            "USE_IN_OBJECT_BASKET_FLAG": "0",
+            "DOCS": ""
+        }
+    ],
+    "totals_rows": [],
+    "filters": {
+        "operator": "AND",
+        "conditions": [
+            {
+                "expression": "APP",
+                "comparator": "=",
+                "value": "0x11e95e229cf921a39677e4b318306b9a",
+                "object_alias": "exface.Core.OBJECT_ACTION"
+            }
+        ]
+    },
+    "rows_limit": null,
+    "rows_offset": 0,
+    "sorters": [
+        {
+            "attribute_alias": "CREATED_ON",
+            "direction": "ASC"
+        },
+        {
+            "attribute_alias": "UID",
+            "direction": "ASC"
+        }
+    ]
+}
