@@ -145,7 +145,7 @@ class MoneyTransferBehavior extends AbstractBehavior
                 $row['currency_booked'] = $txRow['currency_booked'];
             }
             // Use (inverted) amount of the original transaction if not defined explicitly and currencies match 
-            if (($row['amount_booked'] || $row['amount_booked'] === '') && $txRow['amount_booked'] !== null && $row['currency_booked'] === $txRow['currency_booked']) {
+            if (($row['amount_booked'] === null || $row['amount_booked'] === '') && $txRow['amount_booked'] !== null && $row['currency_booked'] === $txRow['currency_booked']) {
                 $row['amount_booked'] = (-1) * NumberDataType::cast($txRow['amount_booked']);
             }
             if ($row['note'] === null && $txRow['note'] !== null) {
