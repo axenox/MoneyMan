@@ -30,7 +30,8 @@ class ImportInvestments extends ImportTransactions
      */
     protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : ResultInterface
     {
-        $importData = $this->getInputDataEnriched($task);
+        $importData = $this->enrichInvestmentData($this->getInputDataSheet($task));
+        
         $tsSheet = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
         $tsSheet->getColumns()->addFromUidAttribute();
         foreach ($importData->getRows() as $rowNr => $row) {            
@@ -45,6 +46,8 @@ class ImportInvestments extends ImportTransactions
                 'transaction_category' => $this->getTransactionCategories($importData, $rowNr),
                 'status' => 'C'
             ]);
+            $tsSheet = $this->enrichData($tsSheet);
+            $tsSheet = $this->checkDuplicates($tsSheet);
             $tsSheet->dataCreate(false, $transaction);
             
             $importData->setCellValue('transaction', $rowNr, $tsSheet->getUidColumn()->getCellValue(0));
@@ -71,7 +74,7 @@ class ImportInvestments extends ImportTransactions
      * @param DataSheetInterface $sheet
      * @return DataSheetInterface
      */
-    protected function enrichData(DataSheetInterface $sheet) : DataSheetInterface
+    protected function enrichInvestmentData(DataSheetInterface $sheet) : DataSheetInterface
     {
         foreach ($sheet->getRows() as $nr => $row) {
             $sheet->setCellValue('investment', $nr, $this->getInvestmentId($sheet, $nr));
@@ -105,6 +108,26 @@ class ImportInvestments extends ImportTransactions
     protected function getTransactionCategories(DataSheetInterface $importData, int $rowNr) : DataSheetInterface
     {
         $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction_category');
+        
+        $fee = $this->getAmountPayed($importData, $rowNr) - $this->getAmountShareValue($importData, $rowNr);
+        
+        $ds->addRow([
+            'category' => $this->getFeeCategoryId($importData, $rowNr),
+            'amount' => (-1)*$fee,
+            'transaction' => $importData->getCellValue('transaction', $rowNr)
+        ]);
+        
+        return $ds;
+    }
+    
+    protected function getInvestmentGainData(DataSheetInterface $importData, int $rowNr) : DataSheetInterface
+    {
+        $shares = $importData->getCellValue('shares', $rowNr);
+        if ($shares > 0) {
+            return null;
+        }
+        
+        $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.investment_transaction_gain');
         
         $fee = $this->getAmountPayed($importData, $rowNr) - $this->getAmountShareValue($importData, $rowNr);
         
@@ -172,36 +195,5 @@ class ImportInvestments extends ImportTransactions
         }
         
         return $this->accountData->getRow($this->accountData->getColumns()->get('account')->findRowByValue($importData->getCellValue('transaction__account', $rowNr)));
-    }
-    
-    protected function getExistingTransactions(DataSheetInterface $inputSheet) : DataSheetInterface
-    {
-        if ($this->existingTransactions === null) {
-            $minDate = null;
-            $maxDate = null;
-            foreach ($inputSheet->getRows() as $row) {
-                $rowDate = DateDataType::cast($row['date']);
-                if ($minDate === null || $minDate > $rowDate) {
-                    $minDate = $rowDate;
-                }
-                if ($maxDate === null || $maxDate < $rowDate) {
-                    $maxDate = $rowDate;
-                }
-            }
-            $minDate = DateDataType::cast(strtotime($minDate. ' - ' . $this->existingTransactionsDaysRange . ' days'));
-            $maxDate = DateDataType::cast(strtotime($maxDate. ' + ' . $this->existingTransactionsDaysRange . ' days'));
-            
-            $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
-            $cols = $ds->getColumns();
-            $cols->addFromAttribute($ds->getMetaObject()->getUidAttribute());
-            $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date', 'status', 'transaction_category__category:LIST']);
-            $ds->addFilterFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
-            $ds->addFilterFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
-            //$ds->addFilterFromColumnValues($inputSheet->getColumns()->get('account'));
-            $ds->dataRead();
-            $this->existingTransactions = $ds;
-        }
-        
-        return $this->existingTransactions;
     }
 }
