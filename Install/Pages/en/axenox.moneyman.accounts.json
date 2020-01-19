@@ -2,7 +2,7 @@
     "id": "0xa4e991705fb111e9ad870205857feb80",
     "alias_with_namespace": "axenox.moneyman.accounts",
     "menu_parent_page_alias": "axenox.moneyman.personal-finance",
-    "menu_index": "2",
+    "menu_index": "3",
     "menu_visible": true,
     "name": "Accounts",
     "description": "",
@@ -47,6 +47,14 @@
             },
             {
                 "attribute_alias": "date_reconciled_max"
+            },
+            {
+                "attribute_alias": "investment_account__id",
+                "caption": "Investment Account",
+                "cell_widget": {
+                    "widget_type": "Display",
+                    "value_data_type": "exface.Core.Boolean"
+                }
             }
         ],
         "buttons": [

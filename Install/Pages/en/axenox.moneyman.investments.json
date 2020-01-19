@@ -1,8 +1,8 @@
 {
     "id": "0x1aafb044347111eab7a80205857feb80",
     "alias_with_namespace": "axenox.moneyman.investments",
-    "menu_parent_page_alias": "axenox.moneyman.investment-types",
-    "menu_index": "0",
+    "menu_parent_page_alias": "axenox.moneyman.personal-finance",
+    "menu_index": "1",
     "menu_visible": true,
     "name": "Investments",
     "description": "",
@@ -44,7 +44,15 @@
                 "attribute_alias": "currency__LABEL"
             },
             {
-                "attribute_alias": "transaction__amount_booked"
+                "attribute_alias": "transaction__amount_booked",
+                "footer": "SUM"
+            },
+            {
+                "attribute_alias": "shares_sold"
+            },
+            {
+                "attribute_alias": "shares_remaining",
+                "footer": "SUM"
             }
         ],
         "sorters": [
