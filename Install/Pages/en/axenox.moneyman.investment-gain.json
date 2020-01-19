@@ -1,0 +1,53 @@
+{
+    "id": "0xc8765df4396c11ea84d90205857feb80",
+    "alias_with_namespace": "axenox.moneyman.investment-gain",
+    "menu_parent_page_alias": "axenox.moneyman.reports",
+    "menu_index": "3",
+    "menu_visible": true,
+    "name": "Investment Gain",
+    "description": "",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "widget_type": "DataTable",
+        "object_alias": "axenox.MoneyMan.investment_transaction_gain",
+        "filters": [
+            {
+                "attribute_alias": "investment"
+            },
+            {
+                "attribute_alias": "sell_account_transaction__date",
+                "widget_type": "RangeFilter"
+            }
+        ],
+        "columns": [
+            {
+                "attribute_alias": "sell_account_transaction__date"
+            },
+            {
+                "attribute_alias": "investment__LABEL"
+            },
+            {
+                "attribute_alias": "buy_total",
+                "footer": "SUM"
+            },
+            {
+                "attribute_alias": "sell_total"
+            },
+            {
+                "attribute_alias": "gain",
+                "footer": "SUM"
+            },
+            {
+                "attribute_alias": "gain_percent",
+                "footer": "AVG"
+            }
+        ],
+        "sorters": [
+            {
+                "attribute_alias": "sell_account_transaction__date",
+                "direction": "desc"
+            }
+        ]
+    }
+}
