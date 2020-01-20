@@ -12,6 +12,8 @@ use exface\Core\Exceptions\Behaviors\BehaviorRuntimeError;
 use exface\Core\DataTypes\ComparatorDataType;
 use exface\Core\DataTypes\SortingDirectionsDataType;
 use exface\Core\DataTypes\NumberDataType;
+use exface\Core\Events\DataSheet\OnDeleteDataEvent;
+use exface\Core\Events\DataSheet\OnBeforeDeleteDataEvent;
 
 /**
  * 
@@ -23,10 +25,13 @@ class InvestmentTransactionBehavior extends AbstractBehavior
 {    
     private $accountData = null;
     
+    private $investmentData = null;
+    
     public function register() : BehaviorInterface
     {
         $this->getWorkbench()->eventManager()->addListener(OnBeforeCreateDataEvent::getEventName(), [$this, 'handleBeforeCreateData']);
         $this->getWorkbench()->eventManager()->addListener(OnBeforeUpdateDataEvent::getEventName(), [$this, 'handleBeforeUpdateData']);
+        //$this->getWorkbench()->eventManager()->addListener(OnBeforeDeleteDataEvent::getEventName(), [$this, 'handleBeforeDeleteData']);
         
         $this->setRegistered(true);
         return $this;
@@ -48,7 +53,11 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         
         $transaction = $event->getTransaction();
         
-        $eventData->getSorters()->addFromString('transaction__date', SortingDirectionsDataType::ASC);
+        $dateCol = $eventData->getColumns()->get('date');
+        if (! $dateCol) {
+            throw new BehaviorRuntimeError($this->getObject(), 'Cannot create investment transactions: missing "date" column in input data!');
+        }
+        $eventData->getSorters()->addFromString('date', SortingDirectionsDataType::ASC);
         $eventData->sort();
         
         $accountTransferData = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
@@ -56,7 +65,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         
         $investmentTxData = $eventData->copy();
         foreach ($investmentTxData->getColumns() as $col) {
-            if ($col->getAttribute()->getRelationPath()->isEmpty() === false) {
+            if ($col->getAttribute()->getRelationPath()->isEmpty() === false || $col->getAttribute()->isWritable() === false) {
                 $investmentTxData->getColumns()->remove($col);
             }
         }
@@ -92,10 +101,13 @@ class InvestmentTransactionBehavior extends AbstractBehavior
                 $totalGain = null;
             }
             
+            $investmentData = $this->getInvestmentData($investmentTxData->getCellValue('investment', 0));
+            $note = ($isSell ? 'Sell ' : 'Buy ') . abs($shares) . 'x ' . $investmentData->getCellValue('LABEL', 0);
+            
             // Create the transfer-transactions between accounts
             $accountTransferData->removeRows();
             $accountTransferData->addRow([
-                'date' => $row['transaction__date'],
+                'date' => $row['date'],
                 'account' => $this->getAccountId($eventData, $rowNr),
                 'transfer_transaction__account' => $this->getCashAccountId($eventData, $rowNr),
                 // The amount booked in the investment transaction is the value of the shares bought. This
@@ -110,7 +122,9 @@ class InvestmentTransactionBehavior extends AbstractBehavior
                 'transfer_transaction__amount_booked' => (-1)*$this->getAmountPayed($eventData, $rowNr),
                 'currency_booked' => $row['currency'],
                 'transaction_category' => $this->createCategoriesSheet($eventData, $rowNr, $totalGain),
-                'status' => 'C'
+                'status' => 'C',
+                'note' => $note,
+                'transfer_transaction__note' => $noe
             ]);
             $accountTransferData->dataCreate(false, $transaction);
             
@@ -141,6 +155,32 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         
         return;
     }
+    /*
+    public function handleBeforeDeleteData(AbstractDataSheetEvent $event)
+    {
+        $eventSheet = $event->getDataSheet();
+        
+        if ($eventSheet->getMetaObject()->is($this->getObject()) === false) {
+            return;
+        }
+        
+        if ($eventSheet->isBlank() === true) {
+            return;
+        }
+        
+        $accountTransactionSheet = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
+        if ($eventSheet->hasUidColumn(true)) {
+            $accountTransactionSheet->addFilterInFromString('investment_transaction', $eventSheet->getUidColumn()->getValues(false));
+        } 
+        if ($eventSheet->getFilters()->isEmpty(true) === false) {
+            $accountTransactionSheet->setFilters($eventSheet->getFilters()->rebase('transaction'));
+        }
+        if ($accountTransactionSheet->isBlank() === false) {
+            $accountTransactionSheet->dataDelete($event->getTransaction());
+        }
+        
+        return;
+    }*/
     
     protected function getAmountShareValue(DataSheetInterface $importData, int $rowNr)
     {
@@ -156,7 +196,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
     
     protected function getAmountPayed(DataSheetInterface $importData, int $rowNr) : float
     {
-        $total = NumberDataType::cast($importData->getCellValue('transaction__amount_booked', $rowNr));
+        $total = NumberDataType::cast($importData->getCellValue('amount_payed', $rowNr));
         
         if ($total === null) {
             throw new BehaviorRuntimeError($this->getObject(), 'Missing input for total payed value!');
@@ -192,8 +232,12 @@ class InvestmentTransactionBehavior extends AbstractBehavior
     {
         $gainTotal = 0;
         foreach ($buyData->getRows() as $buyRow) {
-            $sellSharesFromRow = max($buyRow['shares'], $sellShares);
-            $gainTotal += $sellPrice * $sellSharesFromRow - $buyRow['price'] * $sellSharesFromRow;
+            $sellSharesFromRow = min($buyRow['shares_remaining'], $sellShares);
+            $gainTotal += ($sellPrice - $buyRow['price']) * $sellSharesFromRow;
+            $sellShares = $sellShares - $sellSharesFromRow;
+            if ($sellShares <= 0) {
+                break;
+            }
         }
         return $gainTotal;
     }
@@ -247,7 +291,15 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         if ($this->accountData === null) {
             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.investment_account');
             $ds->getColumns()->addMultiple(['id', 'account', 'cash_account', 'fee_category', 'gain_category']);
-            $ds->addFilterInFromString('account', $importData->getColumns()->get('transaction__account')->getValues());
+            if ($accoutCol = $importData->getColumns()->get('investment_account')) {
+                $ds->addFilterInFromString('investment_account__id', $accoutCol->getValues());
+            } elseif ($accoutCol = $importData->getColumns()->get('account')) {
+                $ds->addFilterInFromString('account', $accoutCol->getValues());
+            } elseif ($accoutCol = $importData->getColumns()->get('transaction__account')) {
+                $ds->addFilterInFromString('account', $accoutCol->getValues());
+            } else {
+                throw new BehaviorRuntimeError($this->getObject(), 'Cannot determine account for investment transaction: either specify "investment_account", "account" or "transaction__account" in input data!');
+            }
             $ds->dataRead();
             $this->accountData = $ds;
         }
@@ -288,6 +340,16 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         $ds->addFilterFromString('shares_remaining', 0, ComparatorDataType::GREATER_THAN);
         $ds->getSorters()->addFromString('transaction__date', SortingDirectionsDataType::ASC);
         $ds->dataRead();
+        return $ds;
+    }
+    
+    protected function getInvestmentData(int $investmentId) : DataSheetInterface
+    {
+        $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.investment');
+        $ds->getColumns()->addMultiple(['id', 'LABEL', 'wkn']);
+        $ds->addFilterInFromString('id', $investmentId);
+        $ds->dataRead();
+        
         return $ds;
     }
 }
