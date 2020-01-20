@@ -28,8 +28,10 @@
                 "attribute_alias": "investment__LABEL"
             },
             {
-                "attribute_alias": "buy_total",
-                "footer": "SUM"
+                "attribute_alias": "shares"
+            },
+            {
+                "attribute_alias": "sell_price"
             },
             {
                 "attribute_alias": "sell_total"
@@ -41,6 +43,18 @@
             {
                 "attribute_alias": "gain_percent",
                 "footer": "AVG"
+            },
+            {
+                "attribute_alias": "buy_total"
+            },
+            {
+                "attribute_alias": "buy_price"
+            },
+            {
+                "attribute_alias": "buy_shares"
+            },
+            {
+                "attribute_alias": "buy_account_transaction__date"
             }
         ],
         "sorters": [

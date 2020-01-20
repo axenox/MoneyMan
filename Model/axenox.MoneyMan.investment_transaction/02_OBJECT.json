@@ -81,7 +81,7 @@
     "rows": [
         {
             "CREATED_ON": "2020-01-10 20:41:30",
-            "MODIFIED_ON": "2020-01-11 13:44:16",
+            "MODIFIED_ON": "2020-01-20 09:34:13",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11ea33e992a2d660b32f0205857feb80",
@@ -96,7 +96,7 @@
             "SHORT_DESCRIPTION": "",
             "PARENT_OBJECT": "",
             "DATA_ADDRESS_PROPS": null,
-            "DEFAULT_EDITOR_UXON": null,
+            "DEFAULT_EDITOR_UXON": "{\"widget_type\":\"Dialog\",\"widgets\":[{\"widget_type\":\"tabs\",\"tabs\":[{\"caption\":\"Investment\",\"widgets\":[{\"widget_type\":\"WidgetGroup\",\"widgets\":[{\"attribute_alias\":\"date\"},{\"attribute_alias\":\"investment\"},{\"attribute_alias\":\"shares\"},{\"widget_type\":\"InlineGroup\",\"widgets\":[{\"attribute_alias\":\"price\"},{\"attribute_alias\":\"currency\",\"width\":\"25%\",\"id\":\"currency_selector\"}]}]},{\"widget_type\":\"WidgetGroup\",\"widgets\":[{\"attribute_alias\":\"account\"},{\"widget_type\":\"InlineGroup\",\"widgets\":[{\"attribute_alias\":\"amount_payed\"},{\"attribute_alias\":\"currency\",\"readonly\":true,\"width\":\"25%\",\"value\":\"=currency_selector\"}]}]},{\"widget_type\":\"DataTable\",\"caption\":\"Gain (sell-transactions only!)\",\"object_alias\":\"axenox.MoneyMan.investment_transaction_gain\",\"filters\":[{\"attribute_alias\":\"sell_transaction\",\"comparator\":\"==\",\"widget_type\":\"InputHidden\",\"required\":true}],\"columns\":[{\"attribute_alias\":\"buy_account_transaction__date\"},{\"attribute_alias\":\"buy_price\"},{\"attribute_alias\":\"shares\",\"footer\":\"SUM\"},{\"attribute_alias\":\"gain\",\"footer\":\"SUM\"},{\"attribute_alias\":\"gain_percent\",\"footer\":\"AVG\"}],\"sorters\":[{\"attribute_alias\":\"buy_account_transaction__date\",\"direction\":\"desc\"}]}]},{\"caption\":\"Transaction\",\"widgets\":[{\"widget_type\":\"ObjectEditor\",\"object_alias\":\"axenox.MoneyMan.transaction\",\"disabled\":true}]}]}]}",
             "ALIAS": "investment_transaction",
             "DATA_ADDRESS": "investment_transaction"
         }

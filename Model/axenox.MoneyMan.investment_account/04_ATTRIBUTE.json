@@ -165,7 +165,7 @@
     "rows": [
         {
             "CREATED_ON": "2020-01-10 20:41:30",
-            "MODIFIED_ON": "2020-01-11 08:42:53",
+            "MODIFIED_ON": "2020-01-19 15:35:42",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11ea33e992f1f917b32f0205857feb80",
@@ -183,14 +183,14 @@
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
             "NAME": "Account",
-            "RELATION_CARDINALITY": "11",
+            "RELATION_CARDINALITY": "",
             "ALIAS": "account",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "account_id",
             "OBJECT": "0x11ea33e992a2ae71b32f0205857feb80",
             "FORMATTER": "",
             "DISPLAYORDER": null,
-            "LABELFLAG": "0",
+            "LABELFLAG": "1",
             "UIDFLAG": "0",
             "HIDDENFLAG": "0",
             "EDITABLEFLAG": "1",
@@ -207,7 +207,7 @@
         },
         {
             "CREATED_ON": "2020-01-10 20:41:30",
-            "MODIFIED_ON": "2020-01-10 20:43:36",
+            "MODIFIED_ON": "2020-01-19 15:00:59",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11ea33e992f2234db32f0205857feb80",
@@ -249,7 +249,7 @@
         },
         {
             "CREATED_ON": "2020-01-10 20:41:30",
-            "MODIFIED_ON": "2020-01-10 20:43:09",
+            "MODIFIED_ON": "2020-01-19 15:00:59",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11ea33e992f24a7bb32f0205857feb80",
@@ -291,7 +291,7 @@
         },
         {
             "CREATED_ON": "2020-01-11 08:31:22",
-            "MODIFIED_ON": "2020-01-11 08:32:13",
+            "MODIFIED_ON": "2020-01-19 15:00:59",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11ea344cbbc06778b32f0205857feb80",

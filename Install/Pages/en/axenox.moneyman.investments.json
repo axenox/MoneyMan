@@ -13,10 +13,11 @@
         "object_alias": "axenox.MoneyMan.investment_transaction",
         "filters": [
             {
-                "attribute_alias": "transaction__account"
-            },
-            {
-                "attribute_alias": "investment"
+                "attribute_alias": "investment",
+                "input_widget": {
+                    "widget_type": "InputComboTable",
+                    "multi_select": true
+                }
             },
             {
                 "attribute_alias": "transaction__date",
@@ -25,6 +26,9 @@
             {
                 "attribute_alias": "transaction__amount_booked_abs",
                 "widget_type": "RangeFilter"
+            },
+            {
+                "attribute_alias": "transaction__account"
             }
         ],
         "columns": [
@@ -53,6 +57,16 @@
             {
                 "attribute_alias": "shares_remaining",
                 "footer": "SUM"
+            },
+            {
+                "attribute_alias": "investment_transaction_gain[sell_transaction]__gain:SUM"
+            },
+            {
+                "attribute_alias": "amount_payed"
+            },
+            {
+                "attribute_alias": "transaction__transfer_transaction__account__LABEL",
+                "caption": "Cash-Account"
             }
         ],
         "sorters": [

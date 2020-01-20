@@ -61,7 +61,7 @@
     "rows": [
         {
             "CREATED_ON": "2020-01-11 13:01:56",
-            "MODIFIED_ON": "2020-01-11 21:09:11",
+            "MODIFIED_ON": "2020-01-19 15:13:53",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11ea3472868f4a45b32f0205857feb80",
@@ -70,7 +70,7 @@
             "ALIAS": "ShowInvestmentImportDialog",
             "NAME": "Import Transactions",
             "SHORT_DESCRIPTION": "",
-            "CONFIG_UXON": "{\"icon\":\"table\",\"widget\":{\"widget_type\":\"Dialog\",\"object_alias\":\"axenox.MoneyMan.investment_transaction\",\"maximized\":true,\"widgets\":[{\"widget_type\":\"DataImporter\",\"columns\":[{\"attribute_alias\":\"transaction__date\"},{\"attribute_alias\":\"investment__wkn\"},{\"attribute_alias\":\"shares\"},{\"attribute_alias\":\"price\"},{\"attribute_alias\":\"transaction__amount_booked\"},{\"attribute_alias\":\"currency\",\"cell_widget\":{\"widget_type\":\"InputCombo\",\"lazy_loading\":false}},{\"attribute_alias\":\"transaction__account\",\"cell_widget\":{\"widget_type\":\"InputCombo\",\"lazy_loading\":false}},{\"attribute_alias\":\"id\",\"editable\":false}]}],\"buttons\":[{\"action_alias\":\"axenox.MoneyMan.ImportInvestments\",\"visibility\":\"promoted\",\"align\":\"opposite\"}]}}",
+            "CONFIG_UXON": "{\"icon\":\"table\",\"widget\":{\"widget_type\":\"Dialog\",\"object_alias\":\"axenox.MoneyMan.investment_transaction\",\"maximized\":true,\"widgets\":[{\"widget_type\":\"DataImporter\",\"columns\":[{\"attribute_alias\":\"date\"},{\"attribute_alias\":\"investment__wkn\"},{\"attribute_alias\":\"shares\"},{\"attribute_alias\":\"price\"},{\"attribute_alias\":\"amount_payed\"},{\"attribute_alias\":\"currency\",\"cell_widget\":{\"widget_type\":\"InputCombo\",\"lazy_loading\":false}},{\"attribute_alias\":\"account\",\"cell_widget\":{\"widget_type\":\"InputCombo\",\"lazy_loading\":false}},{\"attribute_alias\":\"id\",\"editable\":false}]}],\"buttons\":[{\"action_alias\":\"axenox.MoneyMan.ImportInvestments\",\"visibility\":\"promoted\",\"align\":\"opposite\"}]}}",
             "APP": "0x11e95e229cf921a39677e4b318306b9a",
             "USE_IN_OBJECT_BASKET_FLAG": "0",
             "DOCS": ""
