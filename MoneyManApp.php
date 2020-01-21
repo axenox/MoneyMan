@@ -5,9 +5,6 @@ use exface\Core\Interfaces\InstallerInterface;
 use exface\Core\CommonLogic\Model\App;
 use exface\Core\Exceptions\Model\MetaObjectNotFoundError;
 use exface\Core\CommonLogic\AppInstallers\MySqlDatabaseInstaller;
-use exface\Core\Facades\AbstractHttpFacade\HttpFacadeInstaller;
-use exface\Core\Factories\FacadeFactory;
-use powerui\DemoCEP\Facades\UmsXmlApiFacade;
 
 class MoneyManApp extends App
 {
@@ -25,9 +22,6 @@ class MoneyManApp extends App
         } catch (MetaObjectNotFoundError $e) {
             $this->getWorkbench()->getLogger()->warning('Cannot init SqlSchemInstaller for app ' . $this->getAliasWithNamespace() . ': no model there yet!');
         }
-        $tplInstaller = new HttpFacadeInstaller($this->getSelector());
-        $tplInstaller->setFacade(FacadeFactory::createFromString(UmsXmlApiFacade::class, $this->getWorkbench()));
-        $installer->addInstaller($tplInstaller);
         
         return $installer;
     }
