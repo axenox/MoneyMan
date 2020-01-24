@@ -57,7 +57,10 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         if (! $dateCol) {
             throw new BehaviorRuntimeError($this->getObject(), 'Cannot create investment transactions: missing "date" column in input data!');
         }
-        $eventData->getSorters()->addFromString('date', SortingDirectionsDataType::ASC);
+        $eventData->getSorters()
+            ->addFromString('date', SortingDirectionsDataType::ASC)
+            ->addFromString('investment', SortingDirectionsDataType::ASC)
+            ->addFromString('shares', SortingDirectionsDataType::DESC);
         $eventData->sort();
         
         $accountTransferData = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
@@ -89,7 +92,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
                 $buyData = $this->getBuyTransactions($row['investment']);
                 $buySellData = $this->createBuySellSheet($buyData, (-1)*$shares);
                 if ($buySellData->isEmpty() === true) {
-                    throw new BehaviorRuntimeError($this->getObject(), 'Cannot create sell-transactions');
+                    throw new BehaviorRuntimeError($this->getObject(), 'Cannot create sell-transactions for investment ' . $shares . 'x ' . $this->getInvestmentData($row['investment'])->getCellValue('LABEL', 0) . ' on ' . $row['date']);
                 }
                 if (! $col = $investmentTxData->getColumns()->getByExpression('investment_transaction_sold[sell_transaction]')){
                     $col = $investmentTxData->getColumns()->addFromExpression('investment_transaction_sold[sell_transaction]');
@@ -124,7 +127,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
                 'transaction_category' => $this->createCategoriesSheet($eventData, $rowNr, $totalGain),
                 'status' => 'C',
                 'note' => $note,
-                'transfer_transaction__note' => $noe
+                'transfer_transaction__note' => $note
             ]);
             $accountTransferData->dataCreate(false, $transaction);
             
@@ -135,7 +138,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
             // Since this behavior will be triggered again, add a special column value to bypass
             // the behavior (see beginning of this method for handling this column).
             $investmentTxData->setCellValue('_bypass_InvestmentTransactionBehavior', 0, true);
-            $investmentTxData->dataCreate(false, $transaction);
+            $investmentTxData->dataCreate($event->getUpdateIfUidExists(), $transaction);
         }
         
         $event->preventCreate();
