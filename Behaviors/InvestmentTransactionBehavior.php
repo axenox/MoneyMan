@@ -173,7 +173,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
         
         $accountTransactionSheet = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
         if ($eventSheet->hasUidColumn(true)) {
-            $accountTransactionSheet->addFilterInFromString('investment_transaction', $eventSheet->getUidColumn()->getValues(false));
+            $accountTransactionSheet->getFilters()->addConditionFromValueArray('investment_transaction', $eventSheet->getUidColumn()->getValues(false));
         } 
         if ($eventSheet->getFilters()->isEmpty(true) === false) {
             $accountTransactionSheet->setFilters($eventSheet->getFilters()->rebase('transaction'));
@@ -295,11 +295,11 @@ class InvestmentTransactionBehavior extends AbstractBehavior
             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.investment_account');
             $ds->getColumns()->addMultiple(['id', 'account', 'cash_account', 'fee_category', 'gain_category']);
             if ($accoutCol = $importData->getColumns()->get('investment_account')) {
-                $ds->addFilterInFromString('investment_account__id', $accoutCol->getValues());
+                $ds->getFilters()->addConditionFromValueArray('investment_account__id', $accoutCol->getValues());
             } elseif ($accoutCol = $importData->getColumns()->get('account')) {
-                $ds->addFilterInFromString('account', $accoutCol->getValues());
+                $ds->getFilters()->addConditionFromValueArray('account', $accoutCol->getValues());
             } elseif ($accoutCol = $importData->getColumns()->get('transaction__account')) {
-                $ds->addFilterInFromString('account', $accoutCol->getValues());
+                $ds->getFilters()->addConditionFromValueArray('account', $accoutCol->getValues());
             } else {
                 throw new BehaviorRuntimeError($this->getObject(), 'Cannot determine account for investment transaction: either specify "investment_account", "account" or "transaction__account" in input data!');
             }
@@ -339,8 +339,8 @@ class InvestmentTransactionBehavior extends AbstractBehavior
             'price',
             'currency'
         ]);
-        $ds->addFilterFromString('investment', $investmentId, ComparatorDataType::EQUALS);
-        $ds->addFilterFromString('shares_remaining', 0, ComparatorDataType::GREATER_THAN);
+        $ds->getFilters()->addConditionFromString('investment', $investmentId, ComparatorDataType::EQUALS);
+        $ds->getFilters()->addConditionFromString('shares_remaining', 0, ComparatorDataType::GREATER_THAN);
         $ds->getSorters()->addFromString('transaction__date', SortingDirectionsDataType::ASC);
         $ds->dataRead();
         return $ds;
@@ -350,7 +350,7 @@ class InvestmentTransactionBehavior extends AbstractBehavior
     {
         $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.investment');
         $ds->getColumns()->addMultiple(['id', 'LABEL', 'wkn']);
-        $ds->addFilterInFromString('id', $investmentId);
+        $ds->getFilters()->addConditionFromValueArray('id', $investmentId);
         $ds->dataRead();
         
         return $ds;

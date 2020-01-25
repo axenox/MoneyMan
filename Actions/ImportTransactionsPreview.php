@@ -125,7 +125,7 @@ class ImportTransactionsPreview extends CreateData
             $this->payeeIds = [];
             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.transaction');
             $ds->getColumns()->addFromExpression('payee');
-            $ds->addFilterFromString('payee_original_name', $payeeName);
+            $ds->getFilters()->addConditionFromString('payee_original_name', $payeeName);
             $ds->getSorters()->addFromString('created_on', SortingDirectionsDataType::DESC);
             $ds->setRowsLimit(1);
             $ds->dataRead();
@@ -221,9 +221,9 @@ class ImportTransactionsPreview extends CreateData
              $cols = $ds->getColumns();
              $cols->addFromAttribute($ds->getMetaObject()->getUidAttribute());
              $cols->addMultiple(['account', 'transfer_transaction__account', 'payee', 'amount_booked', 'date', 'status', 'transaction_category__category:LIST']);
-             $ds->addFilterFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
-             $ds->addFilterFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
-             $ds->addFilterFromColumnValues($inputSheet->getColumns()->get('account'));
+             $ds->getFilters()->addConditionFromString('date', $minDate, ComparatorDataType::GREATER_THAN_OR_EQUALS);
+             $ds->getFilters()->addConditionFromString('date', $maxDate, ComparatorDataType::LESS_THAN_OR_EQUALS);
+             $ds->getFilters()->addConditionFromColumnValues($inputSheet->getColumns()->get('account'));
              $ds->dataRead();
              $this->existingTransactions = $ds;
         }

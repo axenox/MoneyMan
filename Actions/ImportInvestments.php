@@ -48,7 +48,7 @@ class ImportInvestments extends ImportTransactions
         if ($this->investmentData === null) {
             $ds = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), 'axenox.MoneyMan.investment');
             $ds->getColumns()->addMultiple(['id', 'wkn']);
-            $ds->addFilterInFromString('wkn', $importData->getColumns()->get('investment__wkn')->getValues());
+            $ds->getFilters()->addConditionFromValueArray('wkn', $importData->getColumns()->get('investment__wkn')->getValues());
             $ds->dataRead();
             $this->investmentData = $ds;
         }
