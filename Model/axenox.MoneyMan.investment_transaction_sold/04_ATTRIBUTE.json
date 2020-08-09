@@ -82,6 +82,10 @@
             "attribute_alias": "RELATION_CARDINALITY"
         },
         {
+            "name": "TYPE",
+            "attribute_alias": "TYPE"
+        },
+        {
             "name": "ALIAS",
             "attribute_alias": "ALIAS"
         },
@@ -184,6 +188,7 @@
             "COMMENTS": "",
             "NAME": "Buying Transaction",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "buy_transaction",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "buy_transaction_id",
@@ -226,6 +231,7 @@
             "COMMENTS": "",
             "NAME": "Selling Transaction",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "sell_transaction",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "sell_transaction_id",
@@ -268,6 +274,7 @@
             "COMMENTS": null,
             "NAME": "Shares",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "shares",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "shares",
@@ -293,6 +300,7 @@
     "totals_rows": [],
     "filters": {
         "operator": "AND",
+        "base_object_alias": "exface.Core.ATTRIBUTE",
         "conditions": [
             {
                 "expression": "OBJECT__APP",

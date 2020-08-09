@@ -82,6 +82,10 @@
             "attribute_alias": "RELATION_CARDINALITY"
         },
         {
+            "name": "TYPE",
+            "attribute_alias": "TYPE"
+        },
+        {
             "name": "ALIAS",
             "attribute_alias": "ALIAS"
         },
@@ -184,6 +188,7 @@
             "COMMENTS": null,
             "NAME": "Rule Name",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "name",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "name",
@@ -226,6 +231,7 @@
             "COMMENTS": "",
             "NAME": "Search in field",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "field",
             "DATATYPE": "0x11e7c3960c3586c38001e4b318306b9a",
             "DATA_ADDRESS": "field",
@@ -268,6 +274,7 @@
             "COMMENTS": "",
             "NAME": "Apply only in account",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "account",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "account_id",
@@ -310,6 +317,7 @@
             "COMMENTS": null,
             "NAME": "Regex",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "regex",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "regex",
@@ -352,6 +360,7 @@
             "COMMENTS": null,
             "NAME": "Payee",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "payee",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "payee_id",
@@ -394,6 +403,7 @@
             "COMMENTS": null,
             "NAME": "Category",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "category",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "category_id",
@@ -436,6 +446,7 @@
             "COMMENTS": "",
             "NAME": "Transfer to\/from account",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "transfer_account",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "transfer_account_id",
@@ -478,6 +489,7 @@
             "COMMENTS": null,
             "NAME": "Importance",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "importance",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "importance",
@@ -503,6 +515,7 @@
     "totals_rows": [],
     "filters": {
         "operator": "AND",
+        "base_object_alias": "exface.Core.ATTRIBUTE",
         "conditions": [
             {
                 "expression": "OBJECT__APP",

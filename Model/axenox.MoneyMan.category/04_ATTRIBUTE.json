@@ -82,6 +82,10 @@
             "attribute_alias": "RELATION_CARDINALITY"
         },
         {
+            "name": "TYPE",
+            "attribute_alias": "TYPE"
+        },
+        {
             "name": "ALIAS",
             "attribute_alias": "ALIAS"
         },
@@ -184,6 +188,7 @@
             "COMMENTS": "",
             "NAME": "Category Name",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "category_name",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "category_name",
@@ -226,6 +231,7 @@
             "COMMENTS": "",
             "NAME": "Parent Category",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "parent",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "parent_id",
@@ -268,6 +274,7 @@
             "COMMENTS": "",
             "NAME": "Supercategory",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "parent_ref",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "IF([#parent#] > 0, [#id#], [#parent#])",
@@ -310,6 +317,7 @@
             "COMMENTS": "",
             "NAME": "Has Subcategories",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "has_subcategories",
             "DATATYPE": "0x37000000000000000000000000000000",
             "DATA_ADDRESS": "EXISTS(SELECT 1 FROM category WHERE parent_id = [#~alias#].id)",
@@ -352,6 +360,7 @@
             "COMMENTS": "",
             "NAME": "Type",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "category_type",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "category_type_id",
@@ -394,6 +403,7 @@
             "COMMENTS": "",
             "NAME": "Category",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "LABEL",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "IF([#parent#] > 0, \n  CONCAT(\n    (SELECT [#~alias#]_pn.category_name \n      FROM category [#~alias#]_pn \n      WHERE [#~alias#]_pn.id = [#~alias#].parent_id\n    ),\n    ':',\n    [#category_name#]\n  ), \n  [#category_name#]\n)",
@@ -419,6 +429,7 @@
     "totals_rows": [],
     "filters": {
         "operator": "AND",
+        "base_object_alias": "exface.Core.ATTRIBUTE",
         "conditions": [
             {
                 "expression": "OBJECT__APP",

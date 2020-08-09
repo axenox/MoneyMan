@@ -1,13 +1,17 @@
 {
-    "id": "0x4061e6385e8711e982c40205857feb80",
+    "uid": "0x4061e6385e8711e982c40205857feb80",
     "alias_with_namespace": "axenox.moneyman.personal-finance",
-    "menu_parent_page_alias": "index",
-    "menu_index": "22",
+    "menu_parent_page_selector": "0xf830f1cbba2c11e7895fe4b318306b9a",
+    "menu_index": 18,
     "menu_visible": true,
     "name": "Financial Manager",
     "description": "",
     "intro": "",
-    "replaces_page_alias": null,
+    "replaces_page_selector": null,
+    "created_by_user_selector": "0x31000000000000000000000000000000",
+    "created_on": "2019-04-14 09:31:00",
+    "modified_by_user_selector": "0x11ea8c1397fdf0608c130205857feb80",
+    "modified_on": "2020-06-24 08:39:41",
     "contents": {
         "widget_type": "NavTiles",
         "object_alias": "exface.Core.PAGE"

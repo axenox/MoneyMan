@@ -82,6 +82,10 @@
             "attribute_alias": "RELATION_CARDINALITY"
         },
         {
+            "name": "TYPE",
+            "attribute_alias": "TYPE"
+        },
+        {
             "name": "ALIAS",
             "attribute_alias": "ALIAS"
         },
@@ -184,6 +188,7 @@
             "COMMENTS": "",
             "NAME": "Id",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "id",
             "DATATYPE": "0x11e7b0277435425e98350205857feb80",
             "DATA_ADDRESS": "id",
@@ -226,6 +231,7 @@
             "COMMENTS": "",
             "NAME": "Created on",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "created_on",
             "DATATYPE": "0x11e93b4b3d1f22188c660205857feb80",
             "DATA_ADDRESS": "created_on",
@@ -268,6 +274,7 @@
             "COMMENTS": "",
             "NAME": "Updated on",
             "RELATION_CARDINALITY": "",
+            "TYPE": "D",
             "ALIAS": "updated_on",
             "DATATYPE": "0x11e93b4b3d1f22188c660205857feb80",
             "DATA_ADDRESS": "updated_on",
@@ -293,6 +300,7 @@
     "totals_rows": [],
     "filters": {
         "operator": "AND",
+        "base_object_alias": "exface.Core.ATTRIBUTE",
         "conditions": [
             {
                 "expression": "OBJECT__APP",
