@@ -1,24 +1,24 @@
 {
-    "name": "axenox/MoneyMan",
-    "require": {
-        "exface/core": "~0.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "\\axenox\\PFin\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Config/",
-            "/Translations/",
-            "/Model/"
-        ]
-    },
-    "extra": {
-        "app": {
-            "app_uid": "0x11e95e229cf921a39677e4b318306b9a",
-            "app_alias": "axenox.MoneyMan",
-            "model_md5": "55396d3d612f8e21acc357fe2899fc11",
-            "model_timestamp": "2020-01-20 13:29:17"
-        }
-    }
+	"name" : "axenox/MoneyMan",
+	"require" : {
+		"exface/core" : "^1.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"\\axenox\\PFin\\" : ""
+		},
+		"exclude-from-classmap" : [
+			"/Config/",
+			"/Translations/",
+			"/Model/"
+		]
+	},
+	"extra" : {
+		"app" : {
+			"app_uid" : "0x11e95e229cf921a39677e4b318306b9a",
+			"app_alias" : "axenox.MoneyMan",
+			"model_md5" : "55396d3d612f8e21acc357fe2899fc11",
+			"model_timestamp" : "2020-01-20 13:29:17"
+		}
+	}
 }
