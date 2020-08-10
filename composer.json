@@ -1,11 +1,11 @@
 {
-	"name" : "axenox/MoneyMan",
+	"name" : "axenox/moneyman",
 	"require" : {
 		"exface/core" : "^1.0"
 	},
 	"autoload" : {
 		"psr-4" : {
-			"\\axenox\\PFin\\" : ""
+			"\\axenox\\MoneyMan\\" : ""
 		},
 		"exclude-from-classmap" : [
 			"/Config/",
