@@ -1,15 +1,11 @@
 <?php
 namespace axenox\MoneyMan\Actions;
 
-use exface\Core\Actions\CreateData;
 use exface\Core\Interfaces\DataSources\DataTransactionInterface;
 use exface\Core\Interfaces\Tasks\ResultInterface;
 use exface\Core\Interfaces\Tasks\TaskInterface;
 use exface\Core\Factories\ResultFactory;
-use exface\Core\Interfaces\DataSheets\DataSheetInterface;
 use exface\Core\Factories\DataSheetFactory;
-use exface\Core\DataTypes\SortingDirectionsDataType;
-use exface\Core\Exceptions\Actions\ActionRuntimeError;
 
 class ImportTransactions extends ImportTransactionsPreview
 {

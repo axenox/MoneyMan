@@ -7,7 +7,6 @@ use exface\Core\Events\DataSheet\OnBeforeCreateDataEvent;
 use exface\Core\Events\DataSheet\OnBeforeUpdateDataEvent;
 use exface\Core\Events\DataSheet\AbstractDataSheetEvent;
 use exface\Core\Interfaces\DataSheets\DataSheetInterface;
-use exface\Core\Interfaces\DataSources\DataTransactionInterface;
 use exface\Core\Factories\DataSheetFactory;
 use exface\Core\Exceptions\RuntimeException;
 use exface\Core\DataTypes\StringDataType;
@@ -123,6 +122,7 @@ class MoneyTransferBehavior extends AbstractBehavior
     {
         $transfersSheet = DataSheetFactory::createFromObject($transactionsSheet->getMetaObject());
         $transfersSheet->getColumns()->addFromExpression('_txRowIdx', '_txRowIdx', true);
+        $transfersSheet->getColumns()->addFromUidAttribute();
         foreach ($transactionsSheet->getRows() as $rowIdx => $txRow) {
             $isUpdate = $txRow['transfer_transaction'] > 0;
             $isCreate = $isUpdate === false && $txRow['transfer_transaction__account'] > 0;
